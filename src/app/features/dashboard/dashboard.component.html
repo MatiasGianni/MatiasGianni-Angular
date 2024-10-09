@@ -1,0 +1,32 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p>Auto-resizing sidenav</p>
+    @if (showFiller) {
+    <p>Lorem, ipsum dolor sit amet consectetur.</p>
+    }
+    <button (click)="showFiller = !showFiller" mat-raised-button>
+      Alumnos
+    </button>
+    <button mat-raised-button>
+      Profes
+    </button>
+    <button mat-raised-button>
+      Administracion
+    </button>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <mat-toolbar>
+      <button
+      (click)="drawer.toggle()"
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>My App</span>
+    </mat-toolbar>
+    <app-users />
+  </div>
+</mat-drawer-container>

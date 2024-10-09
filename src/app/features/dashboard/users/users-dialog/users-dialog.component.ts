@@ -17,7 +17,7 @@ interface UserDialogData {
 @Component({
   selector: 'app-users-dialog',
   templateUrl: './users-dialog.component.html',
-  styles: ``,
+  styleUrls: ['./users-dialog.component.scss'],
 })
 export class UsersDialogComponent {
   userForm: FormGroup;

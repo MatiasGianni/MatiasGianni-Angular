@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
   showFiller = false;
+
+  constructor(private router: Router) {}
+
+  logout(): void {
+    localStorage.removeItem("token");
+    this.router.navigate(["auth", "login"])
+  }
 }

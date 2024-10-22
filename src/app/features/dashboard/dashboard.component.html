@@ -1,24 +1,51 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    @if (showFiller) {
-    <p>Lorem, ipsum dolor sit amet consectetur.</p>
-    }
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      Alumnos
-    </button>
-    <button mat-raised-button>
-      Profes
-    </button>
-    <button mat-raised-button>
-      Administracion
-    </button>
+    <mat-nav-list>
+      <a
+        routerLinkActive
+        #homeLink="routerLinkActive"
+        routerLink="home"
+        [activated]="homeLink.isActive"
+        mat-list-item
+      >
+        Inicio
+      </a>
+      <a
+        routerLinkActive
+        #usersLink="routerLinkActive"
+        routerLink="users"
+        [activated]="usersLink.isActive"
+        mat-list-item
+      >
+        Alumnos
+      </a>
+  <!--    <a
+        routerLinkActive
+        #coursesLink="routerLinkActive"
+        routerLink=""
+        [activated]="coursesLink.isActive"
+        mat-list-item
+      >
+        Cursos
+      </a>
+      <a
+        routerLinkActive
+        #classesLink="routerLinkActive"
+        routerLink=""
+        [activated]="classesLink.isActive"
+        mat-list-item
+      >
+        Clases
+      </a>
+      <a (click)="logout()" mat-list-item> Cerrar sesion </a>
+    -->
+    </mat-nav-list>
   </mat-drawer>
 
   <div class="example-sidenav-content">
     <mat-toolbar>
       <button
-      (click)="drawer.toggle()"
+        (click)="drawer.toggle()"
         mat-icon-button
         class="example-icon"
         aria-label="Example icon-button with menu icon"
@@ -27,6 +54,6 @@
       </button>
       <span>My App</span>
     </mat-toolbar>
-    <app-users />
+    <router-outlet></router-outlet>
   </div>
 </mat-drawer-container>

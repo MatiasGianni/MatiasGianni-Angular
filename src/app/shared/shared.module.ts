@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { UserFullNamePipe } from './pipes/user-full-name.pipe';
 import { FsizeDirective } from './directives/fsize.directive';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FsizeDirective } from './directives/fsize.directive';
   ],
   imports: [CommonModule],
   exports: [
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,

@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { UsersModule } from './users/users.module';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { UsersModule } from './users/users.module';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    UsersModule,
+    MatListModule,
   ],
   exports: [DashboardComponent],
 })

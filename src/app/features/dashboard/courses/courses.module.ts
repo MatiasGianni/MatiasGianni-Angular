@@ -20,5 +20,6 @@ import { CoursesDialogComponent } from './courses-dialog/courses-dialog.componen
     CoursesRoutingModule,
     SharedModule,
   ],
+  exports:[CoursesComponent]
 })
 export class CoursesModule { }

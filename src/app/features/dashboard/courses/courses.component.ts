@@ -21,9 +21,7 @@ export class CoursesComponent implements OnInit {
     private coursesService: CoursesService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {
-    console.log('CoursesComponent ha sido creado');
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadCourses();
@@ -31,10 +29,8 @@ export class CoursesComponent implements OnInit {
 
   loadCourses(): void {
     this.isLoading = true;
-    console.log('Cargando cursos...');
-    this.coursesService.getCourse().subscribe({
+    this.coursesService.getCourses().subscribe({
       next: (courses) => {
-        console.log(courses);
         this.dataSource.data = courses;
       },
       error: () => {
@@ -49,7 +45,7 @@ export class CoursesComponent implements OnInit {
   onDelete(id: string): void {
     if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
       this.isLoading = true;
-      this.coursesService.deleteCourse(id).subscribe({
+      this.coursesService.removeCourseById(id).subscribe({
         next: (courses) => {
           this.dataSource.data = courses;
         },
@@ -80,9 +76,9 @@ export class CoursesComponent implements OnInit {
           if (editingCourse) {
             this.handleUpdate(editingCourse.id, result);
           } else {
-            this.coursesService.createCourses(result).subscribe({
-              next: (newCourse) => {
-                this.dataSource.data = [...this.dataSource.data, newCourse];
+            this.coursesService.addCourse(result).subscribe({
+              next: (updatedCourses) => {
+                this.dataSource.data = updatedCourses;
               },
             });
           }
@@ -92,7 +88,7 @@ export class CoursesComponent implements OnInit {
 
   handleUpdate(id: string, updatedCourse: Course): void {
     this.isLoading = true;
-    this.coursesService.updateCourse(id, updatedCourse).subscribe({
+    this.coursesService.updateCourseById(id, updatedCourse).subscribe({
       next: (courses) => {
         this.dataSource.data = courses;
       },

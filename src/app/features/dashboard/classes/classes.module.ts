@@ -17,6 +17,7 @@ import { SharedModule } from '../../../shared/shared.module';
     CommonModule,
     ClassesRoutingModule,
     SharedModule
-  ]
+  ],
+  exports: [ClassesComponent]
 })
 export class ClassesModule { }

@@ -45,7 +45,7 @@ export class ClassesComponent implements OnInit {
   onDelete(id: string): void {
     if (confirm('¿Estás seguro de que deseas eliminar esta clase?')) {
       this.isLoading = true;
-      this.classesService.deleteClass(id).subscribe({
+      this.classesService.removeClassById(id).subscribe({
         next: (classes) => {
           this.dataSource.data = classes;
         },
@@ -74,9 +74,9 @@ export class ClassesComponent implements OnInit {
           if (editingClass) {
             this.handleUpdate(editingClass.id, result);
           } else {
-            this.classesService.createClass(result).subscribe({
-              next: (newClass) => {
-                this.dataSource.data = [...this.dataSource.data, newClass];
+            this.classesService.addClass(result).subscribe({
+              next: (updatedClasses) => {
+                this.dataSource.data = updatedClasses;
               },
             });
           }
@@ -84,11 +84,11 @@ export class ClassesComponent implements OnInit {
       });
   }
 
-  handleUpdate(id: string, updatedClass: Class): void {
+  handleUpdate(id: string, updatedClass: Partial<Class>): void {
     this.isLoading = true;
-    this.classesService.updateClass(id, updatedClass).subscribe({
-      next: (classes) => {
-        this.dataSource.data = classes;
+    this.classesService.updateClassById(id, updatedClass).subscribe({
+      next: (updatedClasses) => {
+        this.dataSource.data = updatedClasses;
       },
       error: () => {
         this.isLoading = false;

@@ -3,22 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { CoursesRoutingModule } from './courses-routing.module';
 import { SharedModule } from '../../../shared/shared.module';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // Asegúrate de importar este módulo
-import { MatDialogModule } from '@angular/material/dialog'; // Si usas diálogos
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { CoursesComponent } from './courses.component';
+import { CoursesDetailComponent } from './courses-detail/courses-detail.component';
+import { CoursesDialogComponent } from './courses-dialog/courses-dialog.component';
+
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CoursesComponent,
+    CoursesDetailComponent,
+    CoursesDialogComponent
+  ],
   imports: [
     CommonModule,
-    MatButtonModule,
     CoursesRoutingModule,
     SharedModule,
-    MatProgressSpinnerModule,
-    MatDialogModule,
-    MatIconModule
-  ]
+  ],
 })
 export class CoursesModule { }

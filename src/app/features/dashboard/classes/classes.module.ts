@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ClassesRoutingModule } from './classes-routing.module';
 import { ClassesComponent } from './classes.component';
 import { ClassesDetailComponent } from './classes-detail/classes-detail.component';
 import { ClassesDialogComponent } from './classes-dialog/classes-dialog.component';
+import { SharedModule } from '../../../shared/shared.module';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { ClassesDialogComponent } from './classes-dialog/classes-dialog.componen
   ],
   imports: [
     CommonModule,
-    ClassesRoutingModule
+    ClassesRoutingModule,
+    SharedModule
   ]
 })
 export class ClassesModule { }

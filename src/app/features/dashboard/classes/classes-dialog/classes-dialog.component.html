@@ -1,1 +1,58 @@
-<router-outlet></router-outlet>
+<h1 mat-dialog-title>
+    {{ data?.editingClass ? "Editando" : "Creando" }} clase
+  </h1>
+  
+  <div mat-dialog-content>
+    <form [formGroup]="classForm">
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field class="example-form-field w-100">
+            <mat-label>Nombre de la Clase</mat-label>
+            <input formControlName="name" matInput type="text" />
+            <mat-error *ngIf="classForm.get('name')?.hasError('required')">
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="example-form-field w-100">
+            <mat-label>Profesor</mat-label>
+            <input formControlName="teacher" matInput type="text" />
+            <mat-error *ngIf="classForm.get('teacher')?.hasError('required')">
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="example-form-field w-100">
+            <mat-label>Horas</mat-label>
+            <input formControlName="hours" matInput type="number" min="1" />
+            <mat-error *ngIf="classForm.get('hours')?.hasError('required')">
+              Este campo es requerido
+            </mat-error>
+            <mat-error *ngIf="classForm.get('hours')?.hasError('min')">
+              Se requiere al menos 1 hora.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="example-form-field w-100">
+            <mat-label>Aula</mat-label>
+            <input formControlName="classroom" matInput type="number" min="100" />
+            <mat-error *ngIf="classForm.get('classroom')?.hasError('required')">
+              Este campo es requerido
+            </mat-error>
+            <mat-error *ngIf="classForm.get('classroom')?.hasError('min')">
+              Se requiere un número de aula válido (mínimo 100).
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <div mat-dialog-actions>
+    <button mat-dialog-close mat-button>Cancelar</button>
+    <button (click)="onSave()" mat-button [disabled]="classForm.invalid">Guardar</button>
+  </div>
+  

@@ -1,80 +1,107 @@
 import { Component, OnInit } from '@angular/core';
-import { CoursesService } from '../../../core/services/courses.service';
-import { Course } from './models';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { CoursesDetailComponent } from './courses-detail/courses-detail.component';
+import { Course } from './models';
+import { CoursesService } from '../../../core/services/courses.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss'], 
+  styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-  courses: Course[] = [];
-  dataSource = new MatTableDataSource<Course>(); 
-  isLoading = false; 
   displayedColumns: string[] = ['id', 'name', 'description', 'createdAt', 'actions'];
+  dataSource = new MatTableDataSource<Course>();
+  isLoading = false;
 
-  constructor(private coursesService: CoursesService, private matDialog: MatDialog) {}
+  constructor(
+    private matDialog: MatDialog,
+    private coursesService: CoursesService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    console.log('CoursesComponent ha sido creado');
+  }
 
   ngOnInit(): void {
     this.loadCourses();
   }
 
   loadCourses(): void {
-    this.isLoading = true; 
+    this.isLoading = true;
+    console.log('Cargando cursos...');
     this.coursesService.getCourse().subscribe({
       next: (courses) => {
-        this.courses = courses;
-        this.dataSource.data = this.courses;
+        console.log(courses);
+        this.dataSource.data = courses;
       },
-      complete: () => this.isLoading = false 
-    });
-  }
-
-  addCourse(course: Omit<Course, 'id' | 'createdAt'>): void {
-    this.coursesService.createCourses(course).subscribe({
-      next: (newCourse) => {
-        this.courses = [...this.courses, newCourse];
-        this.dataSource.data = this.courses;
+      error: () => {
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
       },
     });
-  }
-
-  openModal(editingCourse?: Course): void {
-    const dialogRef = this.matDialog.open(CoursesDetailComponent, {
-      data: {
-        editingCourse,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        if (editingCourse) {
-          this.updateCourse(editingCourse.id, result);
-        } else {
-          this.addCourse(result); 
-        }
-      }
-    });
-  }
-
-  updateCourse(id: string, updatedCourse: Course): void {
-    this.coursesService.updateCourse(id, updatedCourse).subscribe({
-      next: () => this.loadCourses(), // Reload the courses after updating
-    });
-  }
-
-  goToDetail(id: string): void {
-    // Logic for navigating to course details
   }
 
   onDelete(id: string): void {
     if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
-      this.coursesService.deleteCourse(id).subscribe(() => {
-        this.loadCourses(); // Reload courses after deletion
+      this.isLoading = true;
+      this.coursesService.deleteCourse(id).subscribe({
+        next: (courses) => {
+          this.dataSource.data = courses;
+        },
+        error: () => {
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
       });
     }
+  }
+
+  goToDetail(id: string): void {
+    this.router.navigate([id, 'detail'], { relativeTo: this.activatedRoute });
+  }
+
+  openModal(editingCourse?: Course): void {
+    this.matDialog
+      .open(CoursesDetailComponent, {
+        data: {
+          editingCourse,
+        },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          if (editingCourse) {
+            this.handleUpdate(editingCourse.id, result);
+          } else {
+            this.coursesService.createCourses(result).subscribe({
+              next: (newCourse) => {
+                this.dataSource.data = [...this.dataSource.data, newCourse];
+              },
+            });
+          }
+        }
+      });
+  }
+
+  handleUpdate(id: string, updatedCourse: Course): void {
+    this.isLoading = true;
+    this.coursesService.updateCourse(id, updatedCourse).subscribe({
+      next: (courses) => {
+        this.dataSource.data = courses;
+      },
+      error: () => {
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
   }
 }

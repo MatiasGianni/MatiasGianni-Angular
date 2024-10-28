@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
-import { Course } from "../../features/dashboard/courses/models";
-import { generateRandomString } from "../../shared/utils";
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Course } from '../../features/dashboard/courses/models';
+import { generateRandomString } from '../../shared/utils';
 
 let COURSES_DB: Course[] = [
     {
@@ -36,32 +36,31 @@ let COURSES_DB: Course[] = [
     }
 ];
 
-@Injectable({providedIn: "root"})
+@Injectable({ providedIn: 'root' })
 export class CoursesService {
-
     getCourse(): Observable<Course[]> {
-        return of([...COURSES_DB]);
+        return of([...COURSES_DB]); 
     }
 
     createCourses(course: Omit<Course, 'id' | 'createdAt'>): Observable<Course> {
         const courseCreated = {
             ...course,
-            id: generateRandomString(4),
-            createdAt: new Date(),
+            id: generateRandomString(4), 
+            createdAt: new Date(), 
         };
-        COURSES_DB.push(courseCreated);
-        return of(courseCreated);
+        COURSES_DB.push(courseCreated); 
+        return of(courseCreated); 
     }
 
     updateCourse(id: string, updatedCourse: Partial<Course>): Observable<Course[]> {
         COURSES_DB = COURSES_DB.map(course => 
-            course.id === id ? { ...course, ...updatedCourse } : course
+            course.id === id ? { ...course, ...updatedCourse } : course 
         );
-        return of(COURSES_DB);
+        return of(COURSES_DB); 
     }
 
     deleteCourse(id: string): Observable<Course[]> {
-        COURSES_DB = COURSES_DB.filter(course => course.id !== id);
-        return of(COURSES_DB);
+        COURSES_DB = COURSES_DB.filter(course => course.id !== id); 
+        return of(COURSES_DB); 
     }
 }

@@ -1,59 +1,64 @@
+
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <mat-nav-list>
-      <a
+      <mat-nav-list>
+        <a
         routerLinkActive
         #homeLink="routerLinkActive"
         routerLink="home"
         [activated]="homeLink.isActive"
         mat-list-item
-      >
+        >
         Inicio
       </a>
       <a
-        routerLinkActive
-        #usersLink="routerLinkActive"
-        routerLink="users"
-        [activated]="usersLink.isActive"
-        mat-list-item
+      routerLinkActive
+      #usersLink="routerLinkActive"
+      routerLink="users"
+      [activated]="usersLink.isActive"
+      mat-list-item
       >
-        Alumnos
-      </a>
-  <!--    <a
-        routerLinkActive
-        #coursesLink="routerLinkActive"
-        routerLink=""
+      Alumnos
+    </a>
+    <a
+    routerLinkActive
+    #coursesLink="routerLinkActive"
+    routerLink="classes"
         [activated]="coursesLink.isActive"
         mat-list-item
-      >
-        Cursos
-      </a>
-      <a
-        routerLinkActive
-        #classesLink="routerLinkActive"
-        routerLink=""
-        [activated]="classesLink.isActive"
-        mat-list-item
-      >
+        >
         Clases
       </a>
+      <a
+      routerLinkActive
+      #classesLink="routerLinkActive"
+      routerLink="courses"
+        [activated]="classesLink.isActive"
+        mat-list-item
+        >
+        Cursos
+      </a>
       <a (click)="logout()" mat-list-item> Cerrar sesion </a>
-    -->
+      
     </mat-nav-list>
   </mat-drawer>
-
+  
   <div class="example-sidenav-content">
     <mat-toolbar>
       <button
-        (click)="drawer.toggle()"
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with menu icon"
+      (click)="drawer.toggle()"
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
       >
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>My App</span>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-  </div>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Intituciones Okumbi</span>
+  </mat-toolbar>
+  
+  <div class="boxdashboard">
+  <router-outlet></router-outlet>
+</div>
+
+</div>
 </mat-drawer-container>

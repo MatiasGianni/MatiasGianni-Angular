@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit {
   dataSource: User[] = [];
 
   isLoading = false;
+
   constructor(
     private matDialog: MatDialog,
     private usersService: UsersService,
@@ -25,6 +26,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.loadUsers();
   }
+
   loadUsers(): void {
     this.isLoading = true;
     this.usersService.getUsers().subscribe({
@@ -45,7 +47,7 @@ export class UsersComponent implements OnInit {
       this.isLoading = true;
       this.usersService.removeUserById(id).subscribe({
         next: (users) => {
-          this.dataSource = users;
+          this.dataSource = users; 
         },
         error: (err) => {
           this.isLoading = false;
@@ -75,19 +77,25 @@ export class UsersComponent implements OnInit {
 
           if (!!result) {
             if (editingUser) {
-              this.handleUpdate(editingUser.id, result);
+              this.handleUpdate(editingUser.id, result); 
             } else {
-              this.dataSource = [...this.dataSource, result];
+              
+              this.usersService.addUser(result).subscribe({
+                next: (users) => {
+                  this.dataSource = users;
+                },
+              });
             }
           }
         },
       });
   }
+
   handleUpdate(id: string, update: User): void {
     this.isLoading = true;
     this.usersService.updateUserById(id, update).subscribe({
       next: (users) => {
-        this.dataSource = users;
+        this.dataSource = users; 
       },
       error: (err) => {
         this.isLoading = false;

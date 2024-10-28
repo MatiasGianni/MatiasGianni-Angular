@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../features/dashboard/users/models';
 import { delay, map, Observable, of } from 'rxjs';
-import { D } from '@angular/cdk/keycodes';
+import { generateRandomString } from '../../shared/utils';
 
 let DATABASE: User[] = [
   {
@@ -42,40 +42,40 @@ let DATABASE: User[] = [
 ];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
+  constructor() {}
 
-  constructor() { }
+  getById(id: string): Observable<User | undefined> {
+    return this.getUsers().pipe(map((users) => users.find((u) => u.id === id)));
+  }
 
-  getById(id: string): Observable<User | undefined>{
-    return this.getUsers().pipe(map((users) => users.find((u)=>u.id === id)));
-  } 
-  
-  getUsers(): Observable<User[]>{
+  getUsers(): Observable<User[]> {
     return new Observable((observer) => {
-      setInterval(() =>{
-        observer.next(DATABASE)
-        observer.complete();
-      },3000)
-    })
-  }
-
-  removeUserById(id: string): Observable<User[]>{
-    DATABASE = DATABASE.filter((user) => user.id != id);
-    return of(DATABASE).pipe(delay(1000))
-  }
-  
-  updateUserById(id: string, update: Partial<User>) {
-    DATABASE = DATABASE.map((user) =>
-      user.id === id ? { ...user, ...update } : user
-    );
-
-    return new Observable<User[]>((observer) => {
-      setInterval(() => {
+      setTimeout(() => {
         observer.next(DATABASE);
         observer.complete();
       }, 1000);
     });
+  }
+
+  removeUserById(id: string): Observable<User[]> {
+    DATABASE = DATABASE.filter((user) => user.id != id);
+    return of(DATABASE).pipe(delay(1000));
+  }
+
+  updateUserById(id: string, update: Partial<User>): Observable<User[]> {
+    DATABASE = DATABASE.map((user) =>
+      user.id === id ? { ...user, ...update } : user
+    );
+    return of(DATABASE).pipe(delay(1000));
+  }
+
+  addUser(newUser: User): Observable<User[]> {
+    const newId = generateRandomString(4); 
+    const userWithId = { ...newUser, id: newId, createdAt: new Date() };
+    DATABASE = [...DATABASE, userWithId];
+    return of(DATABASE).pipe(delay(1000));
   }
 }

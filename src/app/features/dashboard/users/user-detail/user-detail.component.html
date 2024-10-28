@@ -2,5 +2,10 @@
 <p>Cargando</p>
 } @else {
 <h1>Detalle del Usuario: {{ user?.firstName + " " + user?.lastName }}</h1>
-<p>user-detail works!</p>
+<br>
+<p>Id de regristro:{{user?.id}}</p>
+<br>
+<p>Correo del alumno:{{user?.email}}</p>
+<br>
+<p>Fecha de incripcion:{{user?.createdAt | date}}</p>
 }

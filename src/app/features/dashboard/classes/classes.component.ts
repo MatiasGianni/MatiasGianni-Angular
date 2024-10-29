@@ -5,6 +5,7 @@ import { Class } from './models';
 import { ClassesService } from '../../../core/services/classes.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClassesDialogComponent } from './classes-dialog/classes-dialog.component';
 
 @Component({
   selector: 'app-classes',
@@ -63,9 +64,9 @@ export class ClassesComponent implements OnInit {
     this.router.navigate([id, 'detail'], { relativeTo: this.activatedRoute });
   }
 
-  openModal(editingClass?: Class): void {
+ /* openModal(editingClass?: Class): void {
     this.matDialog
-      .open(ClassesDetailComponent, {
+      .open(ClassesDialogComponent, {
         data: { editingClass },
       })
       .afterClosed()
@@ -82,7 +83,29 @@ export class ClassesComponent implements OnInit {
           }
         }
       });
+  }*/
+
+  openModal(editingClass?: Class): void {
+    this.matDialog
+      .open(ClassesDialogComponent, {
+        data: { editingClass },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          if (editingClass) {
+            this.handleUpdate(editingClass.id, result); // Aquí usa `editingClass.id`
+          } else {
+            this.classesService.addClass(result).subscribe({
+              next: (updatedClasses) => {
+                this.dataSource.data = updatedClasses;
+              },
+            });
+          }
+        }
+      });
   }
+  
 
   handleUpdate(id: string, updatedClass: Partial<Class>): void {
     this.isLoading = true;

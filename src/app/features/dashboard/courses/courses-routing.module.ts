@@ -7,8 +7,9 @@ const routes: Routes = [
   {
     path:"",
     component: CoursesComponent
-  },{
-    path:"id/detail",
+  },
+  {
+    path:":id/detail",
     component:CoursesDetailComponent
 
   }

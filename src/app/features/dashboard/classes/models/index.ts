@@ -2,6 +2,8 @@ export interface Class {
     id: string;
     name: string;
     teacher: string;
-    hours: number
+    hours: number;
     classroom: number;
-}
+  }
+  
+

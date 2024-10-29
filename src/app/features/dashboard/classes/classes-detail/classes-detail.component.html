@@ -1,43 +1,14 @@
-<h2 mat-dialog-title>{{ isEditing ? 'Editar Clase' : 'Agregar Nueva Clase' }}</h2>
-<mat-dialog-content>
-  <form [formGroup]="classForm" class="class-form">
-    <mat-form-field appearance="fill">
-      <mat-label>Nombre de la Clase</mat-label>
-      <input matInput formControlName="name" placeholder="Ej. Introducción a la Programación">
-      <mat-error *ngIf="classForm.get('name')?.invalid && classForm.get('name')?.touched">
-        El nombre es obligatorio.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Profesor</mat-label>
-      <input matInput formControlName="teacher" placeholder="Ej. Laura Gómez">
-      <mat-error *ngIf="classForm.get('teacher')?.invalid && classForm.get('teacher')?.touched">
-        El nombre del profesor es obligatorio.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Horas</mat-label>
-      <input matInput type="number" formControlName="hours" placeholder="Ej. 4" min="1">
-      <mat-error *ngIf="classForm.get('hours')?.invalid && classForm.get('hours')?.touched">
-        Se requiere al menos 1 hora.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Aula</mat-label>
-      <input matInput type="number" formControlName="classroom" placeholder="Ej. 101" min="100">
-      <mat-error *ngIf="classForm.get('classroom')?.invalid && classForm.get('classroom')?.touched">
-        Se requiere un número de aula válido (mínimo 100).
-      </mat-error>
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
-
-<mat-dialog-actions>
-  <button mat-button (click)="matDialogRef.close()">Cancelar</button>
-  <button mat-button color="primary" (click)="onSave()" [disabled]="classForm.invalid">
-    {{ isEditing ? 'Actualizar' : 'Crear' }}
-  </button>
-</mat-dialog-actions>
+@if (isLoading) {
+    <p>Cargando</p>
+    } @else {
+   <h1> Detalles de la clase: {{class?.name}}</h1>
+    <br>
+    <p>Profesor: {{class?.teacher}}</p>
+    <br>
+    <p>Horas:{{class?.hours}}</p>
+    <br>
+    <p>Aula:{{class?.classroom}}</p>
+    <br>
+    <p>Id de regristro{{class?.id}}</p>
+    }
+    

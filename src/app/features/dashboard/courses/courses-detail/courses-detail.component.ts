@@ -1,66 +1,38 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { generateRandomString } from '../../../../shared/utils';
-
-
-interface User {
-  id?: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  createdAt?: Date;
-}
-
-interface UserDialogData {
-  editingUser?: User;
-}
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CoursesService } from '../../../../core/services/courses.service';
+import { Course } from '../models';
 
 @Component({
   selector: 'app-courses-detail',
   templateUrl: './courses-detail.component.html',
-  styleUrl: './courses-detail.component.scss',
+  styleUrls: ['./courses-detail.component.scss'],
 })
-
-export class CoursesDetailComponent {
-  userForm: FormGroup;
+export class CoursesDetailComponent implements OnInit {
+  idCourse?: string;
+  course?: Course;
+  isLoading = false;
 
   constructor(
-    private matDialogRef: MatDialogRef<CoursesDetailComponent>,
-    private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data?: UserDialogData
+    private activatedRoute: ActivatedRoute,
+    private coursesService: CoursesService
   ) {
-    this.userForm = this.formBuilder.group({
-      firstName: [null, [Validators.required]],
-      lastName: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]],
-    });
-    this.patchFormValue();
+    console.log('La ruta es:', activatedRoute);
+    this.idCourse = activatedRoute.snapshot.params['id'];
   }
 
-  private get isEditing() {
-    return !!this.data?.editingUser;
-  }
-
-  patchFormValue() {
-    if (this.data?.editingUser) {
-      this.userForm.patchValue(this.data.editingUser);
-    }
-  }
-
-  onSave(): void {
-    if (this.userForm.invalid) {
-      this.userForm.markAllAsTouched();
-    } else {
-      this.matDialogRef.close({
-        ...this.userForm.value,
-        id: this.isEditing
-          ? this.data!.editingUser!.id
-          : generateRandomString(4),
-        createdAt: this.isEditing
-          ? this.data!.editingUser!.createdAt
-          : new Date(),
+  ngOnInit(): void {
+    this.isLoading = true;
+    this.coursesService
+      .getById(this.activatedRoute.snapshot.params['id'])
+      .subscribe({
+        next: (course) => {
+          this.course = course;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.isLoading = false;
+        }
       });
-    }
   }
 }

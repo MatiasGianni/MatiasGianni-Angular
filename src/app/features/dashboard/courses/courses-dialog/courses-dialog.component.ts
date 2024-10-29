@@ -11,7 +11,7 @@ export interface Course {
 }
 
 interface CourseDialogData {
-  editingCourse?: Course; 
+  editingCourse?: Course;
 }
 
 @Component({
@@ -20,38 +20,42 @@ interface CourseDialogData {
   styleUrls: ['./courses-dialog.component.scss'],
 })
 export class CoursesDialogComponent {
-  courseForm: FormGroup; 
+  courseForm: FormGroup;
 
   constructor(
-    private matDialogRef: MatDialogRef<CoursesDialogComponent>, 
-    private formBuilder: FormBuilder, 
-    @Inject(MAT_DIALOG_DATA) public data?: CourseDialogData 
+    private matDialogRef: MatDialogRef<CoursesDialogComponent>,
+    private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data?: CourseDialogData
   ) {
-    this.courseForm = this.formBuilder.group({ 
-      name: [null, [Validators.required]], 
-      description: [null, [Validators.required]], 
+    this.courseForm = this.formBuilder.group({
+      name: [null, [Validators.required]],
+      description: [null, [Validators.required]],
     });
-    this.patchFormValue(); 
+    this.patchFormValue();
   }
 
   private get isEditing() {
-    return !!this.data?.editingCourse; 
+    return !!this.data?.editingCourse;
   }
 
   patchFormValue() {
     if (this.data?.editingCourse) {
-      this.courseForm.patchValue(this.data.editingCourse); 
+      this.courseForm.patchValue(this.data.editingCourse);
     }
   }
 
   onSave(): void {
     if (this.courseForm.invalid) {
-      this.courseForm.markAllAsTouched(); 
+      this.courseForm.markAllAsTouched();
     } else {
-      this.matDialogRef.close({ 
+      this.matDialogRef.close({
         ...this.courseForm.value,
-        id: this.isEditing ? this.data!.editingCourse!.id : generateRandomString(4), 
-        createdAt: this.isEditing ? this.data!.editingCourse!.createdAt : new Date(), 
+        id: this.isEditing
+          ? this.data!.editingCourse!.id
+          : generateRandomString(4),
+        createdAt: this.isEditing
+          ? this.data!.editingCourse!.createdAt
+          : new Date(),
       });
     }
   }

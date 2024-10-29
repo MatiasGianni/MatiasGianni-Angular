@@ -5,6 +5,7 @@ import { Course } from './models';
 import { CoursesService } from '../../../core/services/courses.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { CoursesDialogComponent } from './courses-dialog/courses-dialog.component';
 
 @Component({
   selector: 'app-courses',
@@ -65,7 +66,7 @@ export class CoursesComponent implements OnInit {
 
   openModal(editingCourse?: Course): void {
     this.matDialog
-      .open(CoursesDetailComponent, {
+      .open(CoursesDialogComponent, {
         data: {
           editingCourse,
         },

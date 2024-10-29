@@ -1,0 +1,88 @@
+
+p[appFsize] {
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000000;
+  }
+  
+  
+  button[mat-button] {
+    background-color: #7d125d;
+    color: rgb(0, 0, 0);
+    border-radius: 4px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  button[mat-button] mat-icon {
+    margin-right: 8px;
+    color: #bb108d; 
+  }
+  
+  button[mat-button]:hover {
+    background-color: #990f73;
+  }
+  
+  
+  table.mat-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  .mat-header-cell {
+    font-weight: bold;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .mat-cell {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  tr.mat-header-row {
+    background-color: #f5f5f5;
+  }
+  
+  tr.mat-row:nth-child(even) {
+    background-color: #fafafa;
+  }
+  
+  tr.mat-row:hover {
+    background-color: #e0f7fa;
+  }
+  
+  button[mat-icon-button] {
+    margin-right: 8px;
+  }
+  
+  button[mat-icon-button]:hover {
+    background-color: #e0e0e0;
+    border-radius: 50%;
+  }
+  
+  .mat-icon {
+    font-size: 20px;
+    color: #bb108d; 
+  }
+  
+  .mat-header-cell, .mat-cell {
+    text-align: left;
+  }
+  @media (max-width: 768px) {
+    .mat-header-cell, .mat-cell {
+      font-size: 14px;
+    }
+  
+    button[mat-button] {
+      padding: 8px 12px;
+    }
+  
+    p[appFsize] {
+      font-size: 20px;
+    }
+  }
+  

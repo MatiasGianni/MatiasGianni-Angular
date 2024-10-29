@@ -4,15 +4,14 @@ import { ClassesComponent } from './classes.component';
 import { ClassesDetailComponent } from './classes-detail/classes-detail.component';
 
 const routes: Routes = [
-  /*
   {
     path:"",
     component:ClassesComponent
   },
   {
-    path: "id/detail",
+    path: ":id/detail",
     component: ClassesDetailComponent
-  }*/
+  }
 ];
 
 @NgModule({

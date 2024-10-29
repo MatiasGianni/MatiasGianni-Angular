@@ -1,59 +1,38 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { generateRandomString } from '../../../../shared/utils';
-
-export interface Class {
-  id?: string;
-  name: string;
-  teacher: string;
-  hours: number;
-  classroom: number;
-}
-
-interface ClassDialogData {
-  editingClass?: Class; 
-}
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ClassesService } from '../../../../core/services/classes.service';
+import { Class } from '../models';
 
 @Component({
   selector: 'app-classes-detail',
   templateUrl: './classes-detail.component.html',
   styleUrls: ['./classes-detail.component.scss'],
 })
-export class ClassesDetailComponent {
-  classForm: FormGroup; 
+export class ClassesDetailComponent implements OnInit {
+  idClass?: string;
+  class?: Class;
+  isLoading = false;
 
   constructor(
-    public matDialogRef: MatDialogRef<ClassesDetailComponent>, 
-    private formBuilder: FormBuilder, 
-    @Inject(MAT_DIALOG_DATA) public data?: ClassDialogData 
+    private activatedRoute: ActivatedRoute,
+    private classesService: ClassesService
   ) {
-    this.classForm = this.formBuilder.group({ 
-      name: [null, [Validators.required]], 
-      teacher: [null, [Validators.required]], 
-      hours: [null, [Validators.required, Validators.min(1)]], 
-      classroom: [null, [Validators.required, Validators.min(100)]], 
-    });
-    this.patchFormValue(); 
+    console.log('La ruta es:', activatedRoute);
+    this.idClass = activatedRoute.snapshot.params['id'];
   }
 
-  public get isEditing() {
-    return !!this.data?.editingClass; 
-  }
-
-  patchFormValue() {
-    if (this.data?.editingClass) {
-      this.classForm.patchValue(this.data.editingClass); 
-    }
-  }
-
-  onSave(): void {
-    if (this.classForm.invalid) {
-      this.classForm.markAllAsTouched(); 
-      this.matDialogRef.close({ 
-        ...this.classForm.value,
-        id: this.isEditing ? this.data!.editingClass!.id : generateRandomString(4), 
+  ngOnInit(): void {
+    this.isLoading = true;
+    this.classesService
+      .getById(this.activatedRoute.snapshot.params['id'])
+      .subscribe({
+        next: (classData) => {
+          this.class = classData;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.isLoading = false;
+        }
       });
-    }
   }
 }

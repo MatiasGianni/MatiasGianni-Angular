@@ -1,12 +1,10 @@
-@if (isLoading) {
-    <p>Cargando</p>
+<div class="container">
+    @if (isLoading) {
+        <p class="loading-text">Cargando...</p>
     } @else {
-    <h1>Detalles del curso:{{course?.id}}</h1>
-    <br>
-    <p>Descripcion:{{course?.description}}</p>
-    <br>
-    <p>Creacion del curso:{{course?.createdAt}}</p>
-    <br>
-    <p>Id de regristro:{{course?.id}}</p>
+        <h1>Detalles del curso: {{ course?.id }}</h1>
+        <p class="course-detail">Descripción: <span>{{ course?.description }}</span></p>
+        <p class="course-detail">Creación del curso: <span>{{ course?.createdAt | date:'medium' }}</span></p>
+        <p class="course-detail">ID de registro: <span>{{ course?.id }}</span></p>
     }
-    
+</div>

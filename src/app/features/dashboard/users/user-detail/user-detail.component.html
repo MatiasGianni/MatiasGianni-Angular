@@ -1,11 +1,10 @@
-@if (isLoading) {
-<p>Cargando</p>
-} @else {
-<h1>Detalle del Usuario: {{ user?.firstName + " " + user?.lastName }}</h1>
-<br>
-<p>Id de regristro:{{user?.id}}</p>
-<br>
-<p>Correo del alumno:{{user?.email}}</p>
-<br>
-<p>Fecha de incripcion:{{user?.createdAt | date}}</p>
-}
+<div class="container">
+    @if (isLoading) {
+        <p class="loading-text">Cargando...</p>
+    } @else {
+        <h1>Detalle del Usuario: {{ user?.firstName + " " + user?.lastName }}</h1>
+        <p class="user-detail">ID de registro: <span>{{ user?.id }}</span></p>
+        <p class="user-detail">Correo del alumno: <span>{{ user?.email }}</span></p>
+        <p class="user-detail">Fecha de inscripción: <span>{{ user?.createdAt | date:'medium' }}</span></p>
+    }
+</div>

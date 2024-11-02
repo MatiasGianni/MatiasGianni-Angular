@@ -79,12 +79,7 @@ export class UsersComponent implements OnInit {
             if (editingUser) {
               this.handleUpdate(editingUser.id, result); 
             } else {
-              
-              this.usersService.addUser(result).subscribe({
-                next: (users) => {
-                  this.dataSource = users;
-                },
-              });
+                this.usersService.createUser(result).subscribe({next: ()=> this.loadUsers()})
             }
           }
         },

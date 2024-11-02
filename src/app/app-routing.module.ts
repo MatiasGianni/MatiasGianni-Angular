@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './features/auth/auth.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
-
+//import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,6 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    // canActivate: [authGuard],
     component: DashboardComponent,
     loadChildren: () =>
       import('./features/dashboard/dashboard.module').then(
@@ -20,8 +21,16 @@ const routes: Routes = [
       ),
   },
   {
+    path: '',
+    component: AuthComponent,
+    loadChildren: () =>
+      import('./features/auth/auth-routing.module').then(
+        (m) => m.AuthRoutingModule
+      ),
+  },
+  {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: 'auth',
   },
   // {
   //   path: "**",

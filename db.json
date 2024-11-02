@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": "606e",
+      "firstName": "Matias",
+      "lastName": "Gianni",
+      "email": "mgianni@gmail.com",
+      "password": "123456",
+      "role": "ADMIN",
+      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
+      "createdAt": "2024-11-01T02:27:58.659Z"
+    },
+    {
+      "id": "JX9x",
+      "firstName": "asdasd",
+      "lastName": "asd",
+      "email": "asdasd@asdasd",
+      "role": "USER",
+      "password": "X7CzfDkh",
+      "token": "ZJLNfzgVDi1UNZi"
+    },
+    {
+      "id": "oNhX",
+      "firstName": "pepe",
+      "lastName": "argentoedit",
+      "email": "pargento@gmail.com",
+      "role": "USER",
+      "password": "UXCKWkLh",
+      "token": "PUar8cLHxUpiFVY"
+    }
+  ],
+  "classes": [
+    {
+      "id": "asdasd2a",
+      "name": "Programacion",
+      "teacher": "Mauro"
+    }
+  ]
+}

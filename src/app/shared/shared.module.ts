@@ -35,7 +35,6 @@ import { MatListModule } from '@angular/material/list';
     MatDatepickerModule,
     MatDialogModule,
     MatTableModule,
-  
   ],
   exports: [
     MatProgressSpinnerModule,

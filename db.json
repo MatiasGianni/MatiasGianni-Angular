@@ -11,29 +11,157 @@
       "createdAt": "2024-11-01T02:27:58.659Z"
     },
     {
-      "id": "JX9x",
-      "firstName": "asdasd",
-      "lastName": "asd",
-      "email": "asdasd@asdasd",
+      "id": "ABCD",
+      "firstName": "Naruto",
+      "lastName": "Uzumaki",
+      "email": "naruto.uzumaki@konoha.com",
+      "password": "1235",
       "role": "USER",
-      "password": "X7CzfDkh",
-      "token": "ZJLNfzgVDi1UNZi"
+      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
+      "createdAt": "1999-09-21T00:00:00.000Z"
     },
     {
-      "id": "oNhX",
-      "firstName": "pepe",
-      "lastName": "argentoedit",
-      "email": "pargento@gmail.com",
+      "id": "EFGH",
+      "firstName": "Monkey D.",
+      "lastName": "Luffy",
+      "email": "luffy.d.monkey@strawhats.com",
+      "password": "4567",
       "role": "USER",
-      "password": "UXCKWkLh",
-      "token": "PUar8cLHxUpiFVY"
+      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
+      "createdAt": "1997-07-22T00:00:00.000Z"
+    },
+    {
+      "id": "IJKL",
+      "firstName": "Goku",
+      "lastName": "Son",
+      "email": "goku.son@saiyan.com",
+      "password": "7890",
+      "role": "USER",
+      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
+      "createdAt": "1984-12-03T00:00:00.000Z"
+    },
+    {
+      "id": "MNOP",
+      "firstName": "Izuku",
+      "lastName": "Midoriya",
+      "email": "izuku.midoriya@ua.com",
+      "password": "2345",
+      "role": "USER",
+      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
+      "createdAt": "2014-07-07T00:00:00.000Z"
+    },
+    {
+      "id": "QRST",
+      "firstName": "Tanjiro",
+      "lastName": "Kamado",
+      "email": "tanjiro.kamado@demon-slayer.com",
+      "password": "6789",
+      "role": "USER",
+      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
+      "createdAt": "2016-02-15T00:00:00.000Z"
+    },
+    {
+      "id": "MNJJ",
+      "firstName": "Hola",
+      "lastName": "asdasd",
+      "email": "asdasd@asdasd",
+      "role": "USER",
+      "password": "YsvusYN1",
+      "token": "atDFp87j6ryxGVY"
+    },
+    {
+      "id": "snPs",
+      "firstName": "545fgdfg",
+      "lastName": "dfgdfg4",
+      "email": "dfgdf4@asdasd",
+      "role": "USER",
+      "password": "XUM5oBld",
+      "token": "yuhw0EcK5skBYhc"
+    },
+    {
+      "id": "2HrF",
+      "firstName": "asdasd",
+      "lastName": "sadfsd",
+      "email": "asasd@asdasd",
+      "role": "USER",
+      "password": "Om4AODj4",
+      "token": "nYLDeS9CUNIUJPG"
     }
   ],
   "classes": [
     {
       "id": "asdasd2a",
       "name": "Programacion",
-      "teacher": "Mauro"
+      "teacher": "Mauro",
+      "hours": 40,
+      "classroom": 1232
+    },
+    {
+      "id": "ABCD",
+      "name": "Introducción a la Programación",
+      "teacher": "Laura Gómez",
+      "hours": 35,
+      "classroom": 1234
+    },
+    {
+      "id": "EFGH",
+      "name": "Desarrollo Web Básico",
+      "teacher": "Carlos Pérez",
+      "hours": 4,
+      "classroom": 2345
+    },
+    {
+      "id": "IJKL",
+      "name": "Bases de Datos",
+      "teacher": "Ana Martínez",
+      "hours": 50,
+      "classroom": 3456
+    },
+    {
+      "id": "MNOP",
+      "name": "Seguridad Informática",
+      "teacher": "Mariana Torres",
+      "hours": 70,
+      "classroom": 4567
+    },
+    {
+      "id": "QRST",
+      "name": "Algoritmos y Estructuras de Datos",
+      "teacher": "Francisco Ramírez",
+      "hours": 20,
+      "classroom": 5678
+    }
+  ],
+  "courses": [
+    {
+      "id": "ABCD",
+      "name": "Curso de Introducción a la Programación",
+      "description": "Fundamentos básicos de la programación y lógica computacional.",
+      "createdAt": "2023-09-01T00:00:00Z"
+    },
+    {
+      "id": "EFGH",
+      "name": "Frontend Profesional",
+      "description": "Desarrollo avanzado de aplicaciones web con HTML, CSS y JavaScript.",
+      "createdAt": "2023-10-10T00:00:00Z"
+    },
+    {
+      "id": "IJKL",
+      "name": "Bases de Datos y SQL",
+      "description": "Diseño de bases de datos y consultas SQL.",
+      "createdAt": "2023-11-05T00:00:00Z"
+    },
+    {
+      "id": "MNOP",
+      "name": "Desarrollo Web Full Stack",
+      "description": "Desarrollo completo de aplicaciones web usando tecnologías modernas.",
+      "createdAt": "2024-02-15T00:00:00Z"
+    },
+    {
+      "id": "QRST",
+      "name": "Ciberseguridad Básica",
+      "description": "Introducción a prácticas y técnicas de ciberseguridad.",
+      "createdAt": "2024-03-10T00:00:00Z"
     }
   ]
 }

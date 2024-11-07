@@ -27,7 +27,7 @@ export class AuthService {
   login(data: AuthData): Observable<User> {
     return this.httpClient
       .get<User[]>(
-        `${this.baseURL}/users?email=${data.email}&password=${data.passwoard}`
+        `${this.baseURL}/users?email=${data.email}&password=${data.password}`
       )
       .pipe(map((users) =>{ 
        const user = this.handleAuthentication(users)

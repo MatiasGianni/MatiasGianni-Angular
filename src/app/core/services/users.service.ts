@@ -75,7 +75,7 @@ export class UsersService {
       role: "USER",
       password: generateRandomString(8),
       token: generateRandomString(15),
-      createdAt: new Date().toISOString,
+      createdAt: new Date().toISOString(),
     });
   }
 

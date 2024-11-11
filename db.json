@@ -61,31 +61,14 @@
       "createdAt": "2016-02-15T00:00:00.000Z"
     },
     {
-      "id": "MNJJ",
-      "firstName": "Hola",
-      "lastName": "asdasd",
-      "email": "asdasd@asdasd",
+      "id": "jwaI",
+      "firstName": "Juan Francisco",
+      "lastName": "García Flores",
+      "email": "ejemplo@ejemplo.mx",
+      "createdAt": "2024-11-07T21:44:08.405Z",
       "role": "USER",
-      "password": "YsvusYN1",
-      "token": "atDFp87j6ryxGVY"
-    },
-    {
-      "id": "snPs",
-      "firstName": "545fgdfg",
-      "lastName": "dfgdfg4",
-      "email": "dfgdf4@asdasd",
-      "role": "USER",
-      "password": "XUM5oBld",
-      "token": "yuhw0EcK5skBYhc"
-    },
-    {
-      "id": "2HrF",
-      "firstName": "asdasd",
-      "lastName": "sadfsd",
-      "email": "asasd@asdasd",
-      "role": "USER",
-      "password": "Om4AODj4",
-      "token": "nYLDeS9CUNIUJPG"
+      "password": "op7BFjtj",
+      "token": "fXa5BIvpCDOog8D"
     }
   ],
   "classes": [

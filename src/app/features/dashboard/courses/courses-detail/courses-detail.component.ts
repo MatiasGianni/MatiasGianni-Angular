@@ -17,7 +17,7 @@ export class CoursesDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private coursesService: CoursesService
   ) {
-    console.log('La ruta es:', activatedRoute);
+    
     this.idCourse = activatedRoute.snapshot.params['id'];
   }
 

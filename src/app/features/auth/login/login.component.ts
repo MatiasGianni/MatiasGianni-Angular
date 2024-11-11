@@ -32,7 +32,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: (result) => {
         this.router.navigate(["dashboard", "home"]);
-        console.log(result);
+        
       },
       error: (err: HttpErrorResponse) => {
         console.error(err);

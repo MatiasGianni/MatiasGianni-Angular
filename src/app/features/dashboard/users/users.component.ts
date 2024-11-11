@@ -73,7 +73,7 @@ export class UsersComponent implements OnInit {
       .afterClosed()
       .subscribe({
         next: (result) => {
-          console.log('Recibimos:', result);
+          
 
           if (!!result) {
             if (editingUser) {

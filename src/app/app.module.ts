@@ -6,10 +6,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { SharedModule } from './shared/shared.module';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, SharedModule,],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, StoreModule.forRoot({}, {}), EffectsModule.forRoot([]),],
   providers: [
     provideAnimationsAsync(), 
     provideNativeDateAdapter(),

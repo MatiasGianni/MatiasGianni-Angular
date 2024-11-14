@@ -1,86 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Class } from '../../features/dashboard/classes/models';
-import { generateRandomNumber, generateRandomString } from '../../shared/utils';
-
-let CLASSES_DB: Class[] = [
-  {
-    id: 'ABCD',
-    name: 'Introducción a la Programación',
-    teacher: 'Laura Gómez',
-    hours: generateRandomNumber(1, 80),
-    classroom: generateRandomNumber(100, 9999),
-  },
-  {
-    id: 'EFGH',
-    name: 'Desarrollo Web Básico',
-    teacher: 'Carlos Pérez',
-    hours: 4,
-    classroom: generateRandomNumber(100, 9999),
-  },
-  {
-    id: 'IJKL',
-    name: 'Bases de Datos',
-    teacher: 'Ana Martínez',
-    hours: generateRandomNumber(1, 80),
-    classroom: generateRandomNumber(100, 9999),
-  },
-  {
-    id: 'MNOP',
-    name: 'Seguridad Informática',
-    teacher: 'Mariana Torres',
-    hours: generateRandomNumber(1, 80),
-    classroom: generateRandomNumber(100, 9999),
-  },
-  {
-    id: 'QRST',
-    name: 'Algoritmos y Estructuras de Datos',
-    teacher: 'Francisco Ramírez',
-    hours: generateRandomNumber(1, 80),
-    classroom: generateRandomNumber(100, 9999),
-  },
-];
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClassesService {
-  constructor() {}
-
-  getById(id: string): Observable<Class | undefined> {
-    return this.getClasses().pipe(
-      map((classes) => classes.find((classItem) => classItem.id === id))
-    );
-  }
-
+  private baseURL = environment.apiBaseURL; 
+  constructor(private httpClient: HttpClient) {}
   getClasses(): Observable<Class[]> {
-    return new Observable((observer) => {
-      setTimeout(() => {
-        observer.next(CLASSES_DB);
-        observer.complete();
-      }, 1000);
-    });
+    return this.httpClient.get<Class[]>(`${this.baseURL}/classes`);
   }
-
-  removeClassById(id: string): Observable<Class[]> {
-    CLASSES_DB = CLASSES_DB.filter((classItem) => classItem.id !== id);
-    return of(CLASSES_DB).pipe(delay(1000));
+  getById(id: string): Observable<Class> {
+    return this.httpClient.get<Class>(`${this.baseURL}/classes/${id}`);
   }
-
-  updateClassById(id: string, update: Partial<Class>): Observable<Class[]> {
-    CLASSES_DB = CLASSES_DB.map((classItem) =>
-      classItem.id === id ? { ...classItem, ...update } : classItem
-    );
-    return of(CLASSES_DB).pipe(delay(1000));
+  removeClassById(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseURL}/classes/${id}`);
   }
-
-  addClass(newClass: Omit<Class, 'id'>): Observable<Class[]> {
-    const classWithId = {
-      ...newClass,
-      id: generateRandomString(4),
-    };
-    CLASSES_DB = [...CLASSES_DB, classWithId];
-    return of(CLASSES_DB).pipe(delay(1000));
+  updateClassById(id: string, update: Partial<Class>): Observable<Class> {
+    return this.httpClient.patch<Class>(`${this.baseURL}/classes/${id}`, update);
+  }
+  addClass(newClass: Omit<Class, 'id'>): Observable<Class> {
+    return this.httpClient.post<Class>(`${this.baseURL}/classes`, newClass);
   }
 }

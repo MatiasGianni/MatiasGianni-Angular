@@ -113,6 +113,13 @@
       "teacher": "Francisco Ramírez",
       "hours": 20,
       "classroom": 5678
+    },
+    {
+      "id": "nqeM",
+      "name": "Lengua",
+      "teacher": "PePE Editado",
+      "hours": 21,
+      "classroom": 123
     }
   ],
   "courses": [
@@ -141,10 +148,16 @@
       "createdAt": "2024-02-15T00:00:00Z"
     },
     {
-      "id": "QRST",
-      "name": "Ciberseguridad Básica",
-      "description": "Introducción a prácticas y técnicas de ciberseguridad.",
-      "createdAt": "2024-03-10T00:00:00Z"
+      "id": "D41y",
+      "name": "CQL",
+      "description": "Base de datos",
+      "createdAt": "2024-11-14T18:31:02.338Z"
+    },
+    {
+      "id": "IBvr",
+      "name": "Mongo DB",
+      "description": "Baseasdasd",
+      "createdAt": "2024-11-14T18:31:19.503Z"
     }
   ]
 }

@@ -43,6 +43,8 @@ export class CoursesDialogComponent {
       this.courseForm.patchValue(this.data.editingCourse);
     }
   }
+  
+  
 
   onSave(): void {
     if (this.courseForm.invalid) {

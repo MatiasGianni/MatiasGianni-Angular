@@ -53,6 +53,6 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-  ],
+  ]
 })
 export class SharedModule {}

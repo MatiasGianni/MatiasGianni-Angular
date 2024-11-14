@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CoursesDetailComponent } from './courses-detail/courses-detail.component';
 import { Course } from './models';
 import { CoursesService } from '../../../core/services/courses.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,6 +31,7 @@ export class CoursesComponent implements OnInit {
     this.isLoading = true;
     this.coursesService.getCourses().subscribe({
       next: (courses) => {
+       
         this.dataSource.data = courses;
       },
       error: () => {
@@ -42,6 +42,8 @@ export class CoursesComponent implements OnInit {
       },
     });
   }
+  
+  
 
   onDelete(id: string): void {
     if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
@@ -64,7 +66,15 @@ export class CoursesComponent implements OnInit {
     this.router.navigate([id, 'detail'], { relativeTo: this.activatedRoute });
   }
 
+  goToEdit(id: string): void {
+    const courseToEdit = this.dataSource.data.find(course => course.id === id);
+    this.openModal(courseToEdit); 
+  }
+  
+
   openModal(editingCourse?: Course): void {
+    
+  
     this.matDialog
       .open(CoursesDialogComponent, {
         data: {
@@ -72,28 +82,42 @@ export class CoursesComponent implements OnInit {
         },
       })
       .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          if (editingCourse) {
-            this.handleUpdate(editingCourse.id, result);
-          } else {
-            this.coursesService.addCourse(result).subscribe({
-              next: (updatedCourses) => {
-                this.dataSource.data = updatedCourses;
-              },
-            });
+      .subscribe({
+        next: (result) => {
+          if (!!result) {
+            if (editingCourse) {
+              
+              this.handleUpdate(editingCourse.id, result);
+            } else {
+              this.coursesService.createCourse(result).subscribe({
+                next: () => {
+                  this.loadCourses();
+                },
+                error: () => {
+                  console.error("Error al agregar el curso.");
+                }
+              });
+            }
           }
-        }
+        },
       });
   }
-
+  
+  
+  
   handleUpdate(id: string, updatedCourse: Course): void {
+    if (!id) {
+      console.error("ID del curso no válido:", id); 
+      return;
+    }
+    
     this.isLoading = true;
     this.coursesService.updateCourseById(id, updatedCourse).subscribe({
       next: (courses) => {
-        this.dataSource.data = courses;
+        this.dataSource.data = courses; 
       },
-      error: () => {
+      error: (err) => {
+        console.error('Error al actualizar el curso:', err);
         this.isLoading = false;
       },
       complete: () => {
@@ -101,4 +125,4 @@ export class CoursesComponent implements OnInit {
       },
     });
   }
-}
+}  

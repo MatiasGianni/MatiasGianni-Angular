@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../features/dashboard/users/models';
-import { concatMap, delay, map, Observable, of } from 'rxjs';
+import { catchError, concatMap, delay, map, Observable, of, throwError } from 'rxjs';
 import { generateRandomString } from '../../shared/utils';
 import { environment } from '../../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 let DATABASE: User[] = [
   {
@@ -61,33 +61,56 @@ export class UsersService {
 
   constructor(private httpClient: HttpClient) {}
 
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'Ocurrió un error desconocido';
+    if (error.error instanceof ErrorEvent) {
+       
+        errorMessage = `Error: ${error.error.message}`;
+    } else {
+        
+        errorMessage = `El servidor devolvió el código: ${error.status}, mensaje de error: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+}
+
+
   getById(id: string): Observable<User | undefined> {
-    return this.httpClient.get<User>(`${this.baseURL}/users/${id}`);
+    return this.httpClient.get<User>(`${this.baseURL}/users/${id}`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.baseURL}/users`);
+    return this.httpClient.get<User[]>(`${this.baseURL}/users`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   createUser(data: Omit<User, 'id'>): Observable<User> {
     return this.httpClient.post<User>(`${this.baseURL}/users`, {
       ...data,
-      role: "USER",
+      role: 'USER',
       password: generateRandomString(8),
       token: generateRandomString(15),
       createdAt: new Date().toISOString(),
-    });
+    }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   removeUserById(id: string): Observable<User[]> {
-    return this.httpClient
-    .delete<User>(`${this.baseURL}/users/${id}`)
-    .pipe(concatMap(() => this.getUsers()));
+    return this.httpClient.delete<User>(`${this.baseURL}/users/${id}`).pipe(
+      concatMap(() => this.getUsers()),
+      catchError(this.handleError)
+    );
   }
 
   updateUserById(id: string, update: Partial<User>): Observable<User[]> {
-    return this.httpClient.patch<User>(`${this.baseURL}/users/${id}`, update)
-    .pipe(concatMap(() => this.getUsers()));
+    return this.httpClient.patch<User>(`${this.baseURL}/users/${id}`, update).pipe(
+      concatMap(() => this.getUsers()),
+      catchError(this.handleError)
+    );
   }
 
   addUser(newUser: User): Observable<User[]> {

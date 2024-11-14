@@ -73,8 +73,6 @@ export class UsersComponent implements OnInit {
       .afterClosed()
       .subscribe({
         next: (result) => {
-          
-
           if (!!result) {
             if (editingUser) {
               this.handleUpdate(editingUser.id, result); 

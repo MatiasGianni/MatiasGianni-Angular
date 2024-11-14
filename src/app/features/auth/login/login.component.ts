@@ -74,4 +74,10 @@ export class LoginComponent {
       this.doLogin();
     }
   }
+
+  goToRegister() {
+    this.router.navigate(['/register-new']);
+  }
+
+
 }

@@ -1,0 +1,90 @@
+/* Estilo general para el formulario */
+form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Mat-form-field styling */
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  /* Mejorar la apariencia del botón */
+  button {
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  /* Estilo para los labels */
+  mat-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Personalización de los campos de entrada (inputs) */
+  input[matInput] {
+    padding: 12px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Estilo para los errores */
+  mat-error {
+    font-size: 12px;
+    color: #d32f2f;
+    margin-top: 5px;
+  }
+  
+  /* Mensaje de error con un borde rojo */
+  mat-error div {
+    border-left: 4px solid #d32f2f;
+    padding-left: 8px;
+  }
+  
+  /* Estilo del botón de submit */
+  button[mat-raised-button] {
+    background-color: #3f51b5;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Cambio de color del botón cuando está deshabilitado */
+  button[mat-raised-button]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Estilos para el estado "touched" y "invalid" de los campos */
+  mat-form-field.ng-invalid.ng-touched {
+    border: 1px solid #d32f2f;
+  }
+  
+  mat-form-field.ng-valid.ng-touched {
+    border: 1px solid #4caf50;
+  }
+  
+  /* Ajustes para el fondo del formulario */
+  mat-form-field[appearance="fill"] {
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  
+  /* Agregar un margen superior al formulario */
+  form {
+    margin-top: 30px;
+  }
+  
+  /* Estilo para el texto del botón */
+  button {
+    font-weight: 600;
+  }
+  

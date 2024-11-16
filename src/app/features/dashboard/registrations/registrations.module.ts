@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SaleEffects } from './store/sale.effects';
 import { StoreModule } from '@ngrx/store';
 import { saleFeature } from './store/sale.reducer';
+import { SharedModule } from '../../../shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { saleFeature } from './store/sale.reducer';
     CommonModule,
     RegistrationsRoutingModule,
     StoreModule.forFeature(saleFeature),
-    EffectsModule.forFeature([SaleEffects])
+    EffectsModule.forFeature([SaleEffects]),
+    SharedModule
   ]
 })
 export class RegistrationsModule { }

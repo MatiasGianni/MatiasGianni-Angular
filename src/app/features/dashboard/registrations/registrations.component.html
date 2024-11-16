@@ -1,1 +1,24 @@
-<p>registrations works!</p>
+<form>
+    <mat-form-field>
+        <mat-label>Cursos</mat-label>
+        <mat-select>
+            <mat-option [value]="Cursos.id" *ngFor="let Cursos of courseOptions$ | async">
+                {{Cursos.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Alumno</mat-label>
+        <mat-select>
+            <mat-option [value]="Alumno.id" *ngFor="let Alumno of userOptions$ | async">
+                {{Alumno.firstName}} {{Alumno.lastName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-flat-button>Guardar</button>
+</form>
+
+
+
+<pre>{{ regis$ | async | json}}</pre>

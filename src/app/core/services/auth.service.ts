@@ -8,25 +8,20 @@ import { environment } from '../../../environments/environment';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../../store/actions/auth.actions';
 import { selectAutheticatedUser } from '../../store/selectors/auth.selectors';
-
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  public authUser$: Observable<User | null>
-   
-  private baseURL = environment.apiBaseURL
-
+  public authUser$: Observable<User | null>;
+  private baseURL = environment.apiBaseURL;
   constructor(
-    private router: Router, private httpClient: HttpClient
-  ,private store: Store) {
-   this.authUser$ = this.store.select(selectAutheticatedUser);
+    private router: Router,
+    private httpClient: HttpClient,
+    private store: Store
+  ) {
+    this.authUser$ = this.store.select(selectAutheticatedUser);
   }
-
   private handleAuthentication(users: User[]): User | null {
     if (!!users[0]) {
-
-      this.store.dispatch(AuthActions.setAuthenticatedUser({ user: users[0]}))
-     
+      this.store.dispatch(AuthActions.setAuthenticatedUser({ user: users[0] }));
       localStorage.setItem('token', users[0].token);
       return users[0];
     } else {
@@ -38,22 +33,22 @@ export class AuthService {
       .get<User[]>(
         `${this.baseURL}/users?email=${data.email}&password=${data.password}`
       )
-      .pipe(map((users) =>{ 
-       const user = this.handleAuthentication(users)
-       if(user) {
-        return user
-       }else{
-        throw new Error("Los datos son invalidos");
-       }
-      }));
+      .pipe(
+        map((users) => {
+          const user = this.handleAuthentication(users);
+          if (user) {
+            return user;
+          } else {
+            throw new Error('Los datos son invalidos');
+          }
+        })
+      );
   }
-
   logout() {
-    this.store.dispatch(AuthActions.unsetAuthenticatedUser())
+    this.store.dispatch(AuthActions.unsetAuthenticatedUser());
     localStorage.removeItem('token');
     this.router.navigate(['auth', 'login']);
   }
-
   verifyToken(): Observable<boolean> {
     return this.httpClient
       .get<User[]>(
@@ -67,4 +62,3 @@ export class AuthService {
       );
   }
 }
-

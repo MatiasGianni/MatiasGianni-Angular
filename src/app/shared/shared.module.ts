@@ -37,8 +37,9 @@ import { MatListModule } from '@angular/material/list';
     MatTableModule,
   ],
   exports: [
-    MatProgressSpinnerModule,
+    CommonModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,

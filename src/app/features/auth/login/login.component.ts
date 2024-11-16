@@ -76,8 +76,9 @@ export class LoginComponent {
   }
 
   goToRegister() {
-    this.router.navigate(['/register-new']);
+    this.router.navigate(["auth", "app-register-new"]);
   }
+  
 
 
 }

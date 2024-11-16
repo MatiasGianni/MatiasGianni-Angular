@@ -14,7 +14,7 @@ const routes: Routes = [
     component:RegisterComponent,
   },
   {
-    path: "register-new",
+    path: 'app-register-new',
     component:RegisterNewComponent
   },
   {

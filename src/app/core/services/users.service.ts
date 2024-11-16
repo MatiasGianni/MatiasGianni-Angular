@@ -12,8 +12,9 @@ let DATABASE: User[] = [
     lastName: 'Uzumaki',
     createdAt: new Date('1999-09-21'),
     email: 'naruto.uzumaki@konoha.com',
-    passwoard: '1235',
+    password: '1235',
     token: generateRandomString(15),
+    role: "Alum"
   },
   {
     id: 'EFGH',
@@ -21,8 +22,9 @@ let DATABASE: User[] = [
     lastName: 'Luffy',
     createdAt: new Date('1997-07-22'),
     email: 'luffy.d.monkey@strawhats.com',
-    passwoard: '4567',
+    password: '4567',
     token: generateRandomString(15),
+     role: "Alum"
   },
   {
     id: 'IJKL',
@@ -30,8 +32,9 @@ let DATABASE: User[] = [
     lastName: 'Son',
     createdAt: new Date('1984-12-03'),
     email: 'goku.son@saiyan.com',
-    passwoard: '7890',
+    password: '7890',
     token: generateRandomString(15),
+     role: "Alum"
   },
   {
     id: 'MNOP',
@@ -39,8 +42,9 @@ let DATABASE: User[] = [
     lastName: 'Midoriya',
     createdAt: new Date('2014-07-07'),
     email: 'izuku.midoriya@ua.com',
-    passwoard: '2345',
+    password: '2345',
     token: generateRandomString(15),
+     role: "Alum"
   },
   {
     id: 'QRST',
@@ -48,8 +52,9 @@ let DATABASE: User[] = [
     lastName: 'Kamado',
     createdAt: new Date('2016-02-15'),
     email: 'tanjiro.kamado@demon-slayer.com',
-    passwoard: '6789',
+    password: '6789',
     token: generateRandomString(15),
+     role: "Alum"
   },
 ];
 

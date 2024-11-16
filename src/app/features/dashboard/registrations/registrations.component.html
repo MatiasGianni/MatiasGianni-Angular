@@ -1,24 +1,41 @@
-<form>
-    <mat-form-field>
-        <mat-label>Cursos</mat-label>
-        <mat-select>
-            <mat-option [value]="Cursos.id" *ngFor="let Cursos of courseOptions$ | async">
-                {{Cursos.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Alumno</mat-label>
-        <mat-select>
-            <mat-option [value]="Alumno.id" *ngFor="let Alumno of userOptions$ | async">
-                {{Alumno.firstName}} {{Alumno.lastName}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <button mat-flat-button>Guardar</button>
-</form>
+<mat-form-field>
+    <mat-label>Cursos</mat-label>
+    <mat-select formControlName="courseId" required>
+      <mat-option [value]="Cursos.id" *ngFor="let Cursos of courseOptions$ | async">
+        {{ Cursos.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="regisForm.get('courseId')?.hasError('required')">
+      El curso es obligatorio.
+    </mat-error>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Alumno</mat-label>
+    <mat-select formControlName="userId" required>
+      <mat-option [value]="Alumno.id" *ngFor="let Alumno of userOptions$ | async">
+        {{ Alumno.firstName }} {{ Alumno.lastName }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="regisForm.get('userId')?.hasError('required')">
+      El alumno es obligatorio.
+    </mat-error>
+  </mat-form-field>
+  
 
 
 
 <pre>{{ regis$ | async | json}}</pre>
+
+
+<pre *ngIf="regis$ | async as regis">
+    {{ regis | json }}
+  </pre>
+  
+  <h2>Registros Actuales:</h2>
+  <ul>
+    <li *ngFor="let reg of regis$ | async">
+      Curso ID: {{ reg.courseId }}, Alumno ID: {{ reg.userId }}
+    </li>
+  </ul>
+  

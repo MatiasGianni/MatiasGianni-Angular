@@ -19,3 +19,14 @@ export const selectUserOptions = createSelector(
   selectSaleState,
   (state) => state.userOptions
 )
+
+
+export const selectLoadSalesError = createSelector(
+  selectSaleState,
+  (state) => state.loadSalesError
+);
+
+export const selectIsLoadinSales = createSelector(
+  selectSaleState,
+  (state) => state.isLoadingSales
+);

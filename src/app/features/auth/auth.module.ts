@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { SharedModule } from '../../shared/shared.module';
 import { RegisterNewComponent } from './register-new/register-new.component';
 
@@ -13,7 +12,7 @@ import { RegisterNewComponent } from './register-new/register-new.component';
   declarations: [
     AuthComponent,
     LoginComponent,
-    RegisterComponent,
+    
     RegisterNewComponent,
   ],
   imports: [

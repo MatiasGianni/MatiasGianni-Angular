@@ -1,92 +1,77 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { SaleActions } from './sale.actions';
 import { Registration } from '../models';
-import { state } from '@angular/animations';
 import { Course } from '../../courses/models';
 import { User } from '../../users/models';
-import { generateRandomString } from '../../../../shared/utils';
-
-const REGIS_DB: Registration[] = [
-  {
-    id: 'asda23',
-    userId: 'asd',
-    courseId: 'asd2',
-  },
-];
-
-const COURSE_DB: Course[] = [
-  {
-    id: 'ABCD',
-    name: 'Curso de Introducción a la Programación',
-    description:
-      'Fundamentos básicos de la programación y lógica computacional.',
-    createdAt: new Date('2023-09-01T00:00:00Z'),
-  },
-];
-
-const USER_DB: User[] = [
-  {
-    id: 'ABCD',
-    firstName: 'Naruto',
-    lastName: 'Uzumaki',
-    email: 'naruto.uzumaki@konoha.com',
-    password: '1235',
-    role: 'USER',
-    token: 'asdGFdfgdfHGBFghfghfghFgdfGDfcv',
-    createdAt: new Date('1999-09-21T00:00:00.000Z'),
-  },
-];
-
 export const saleFeatureKey = 'sale';
-
 export interface State {
+  isLoadingSales: boolean;
+  loadSalesError: Error | null,
   registrations: Registration[];
   courseOptions: Course[];
   userOptions: User[];
 }
-
 export const initialState: State = {
+  isLoadingSales: false,
+  loadSalesError:null,
   registrations: [],
   courseOptions: [],
   userOptions: [],
 };
-
 export const reducer = createReducer(
   initialState,
   on(SaleActions.loadSales, (state) => {
     return {
       ...state,
-      registrations: [...REGIS_DB], // Cambiar 'sales' a 'registrations'
+      isLoadingSales: true
     };
   }),
-  on(SaleActions.createRegistration, (state, actions) => {
+  on(SaleActions.loadSales, (state) => {
     return {
       ...state,
-      registrations: [
-        ...state.registrations,
-        {
-          id: generateRandomString(4),
-          courseId: actions.courseId,
-          userId: actions.userId,
-        },
-      ],
+      isLoadingSales: true,
     };
   }),
-  on(SaleActions.loadUserOptions, (state) => {
-    return {
-      ...state,
-      userOptions: [...USER_DB],
-    };
-  }),
-  on(SaleActions.loadCourseOptions, (state) => {
-    return {
-      ...state,
-      courseOptions: [...COURSE_DB],
-    };
-  })
+on(SaleActions.loadSalesSuccess, (state, action) => {
+  return{
+    ...state,
+    sales:action.data,
+    loadSalesError:null,
+    isLoadingSales:false,
+  }
+}),
+on(SaleActions.loadSalesFailure, (state, action) => {
+  return {
+    ...state,
+    ...initialState,
+    loadSalesError: action.error,
+    isLoadingSales: false,
+  };
+}),
+
+on(SaleActions.loadCourseAndUserOptions, (state) => {
+  return {
+    ...state,
+    isLoadingSales: true,
+  };
+}),
+on(SaleActions.loadCourseAndUserOptionsSuccess, (state, action) => {
+  return {
+    ...state,
+    loadSalesError: null,
+    isLoadingSales: false,
+    productOptions: action.course,
+    userOptions: action.users,
+  };
+}),
+on(SaleActions.loadCourseAndUserOptionsFailure, (state, { error }) => {
+  return {
+    ...state,
+    loadSalesError: error,
+    isLoadingSales: false,
+  };
+})
 );
-
-
 export const saleFeature = createFeature({
   name: saleFeatureKey,
   reducer,

@@ -14,14 +14,15 @@ import { NavigationExtras, Router } from '@angular/router';
     firstName: 'Mock',
     lastName: 'Mock',
     email: 'mockuser@mail.com',
-    passwoard: '123456',
+    password: '123456',
     createdAt: new Date(),
+    role: "user",
     token: 'asdasdfgxcfesds',
   };
   
   const mockAuthData: AuthData = {
     email: 'mockuser@mail.com',
-    passwoard: '123456',
+    password: '123456',
   };
   
   describe('AuthService', () => {
@@ -55,7 +56,7 @@ import { NavigationExtras, Router } from '@angular/router';
       });
       
       const mockReq = httpController.expectOne({
-        url: `${service['baseURL']}/users?email=${mockAuthData.email}&password=${mockAuthData.passwoard}`,
+        url: `${service['baseURL']}/users?email=${mockAuthData.email}&password=${mockAuthData.password}`,
         method: 'GET',
       });
       mockReq.flush([mockUser]);
@@ -71,7 +72,7 @@ import { NavigationExtras, Router } from '@angular/router';
         });
     
         const mockReq = httpController.expectOne({
-          url: `${service['baseURL']}/users?email=${mockAuthData.email}&password=${mockAuthData.passwoard}`,
+          url: `${service['baseURL']}/users?email=${mockAuthData.email}&password=${mockAuthData.password}`,
           method: 'GET',
         });
         mockReq.flush([]);
@@ -82,7 +83,7 @@ import { NavigationExtras, Router } from '@angular/router';
         service.login(mockAuthData).subscribe();
   
       const mockReq = httpController.expectOne({
-        url: `${service['baseURL']}/users?email=${mockAuthData.email}&password=${mockAuthData.passwoard}`,
+        url: `${service['baseURL']}/users?email=${mockAuthData.email}&password=${mockAuthData.password}`,
         method: 'GET',
       });
       mockReq.flush([mockUser]);

@@ -23,19 +23,19 @@
   </mat-form-field>
   
 
-
-
 <pre>{{ regis$ | async | json}}</pre>
-
 
 <pre *ngIf="regis$ | async as regis">
     {{ regis | json }}
   </pre>
-  
   <h2>Registros Actuales:</h2>
   <ul>
     <li *ngFor="let reg of regis$ | async">
       Curso ID: {{ reg.courseId }}, Alumno ID: {{ reg.userId }}
     </li>
   </ul>
-  
+
+  @if (loadSalesError$ | async; as error) {
+    <h2>Hu! Ocurrio un error!</h2>
+    <p>{{error["message"]}}</p>
+  }

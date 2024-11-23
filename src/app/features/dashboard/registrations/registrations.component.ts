@@ -6,6 +6,8 @@ import { Registration } from './models';
 import {
   selecRegis,
   selectCourseOptions,
+  selectIsLoadinSales,
+  selectLoadSalesError,
   selectUserOptions,
 } from './store/sale.selectors';
 import { User } from '../users/models';
@@ -21,6 +23,8 @@ export class RegistrationsComponent implements OnInit {
   regis$: Observable<Registration[]>;
   userOptions$: Observable<User[]>;
   courseOptions$: Observable<Course[]>;
+  loadSalesError$: Observable<Error | null>;
+  isLoadinSales$: Observable<boolean>;
 
   regisForm: FormGroup;
 
@@ -33,12 +37,13 @@ export class RegistrationsComponent implements OnInit {
     this.regis$ = this.store.select(selecRegis);
     this.userOptions$ = this.store.select(selectUserOptions);
     this.courseOptions$ = this.store.select(selectCourseOptions);
+    this.isLoadinSales$ = this.store.select(selectIsLoadinSales);
+   this.loadSalesError$ = this.store.select(selectLoadSalesError);
   }
 
   ngOnInit(): void {
     this.store.dispatch(SaleActions.loadSales());
-    this.store.dispatch(SaleActions.loadCourseOptions());
-    this.store.dispatch(SaleActions.loadUserOptions());
+    this.store.dispatch(SaleActions.loadCourseAndUserOptions())
   }
 
   onSubmit(): void {

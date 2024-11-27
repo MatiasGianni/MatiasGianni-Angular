@@ -4,54 +4,56 @@ import { SaleActions } from './store/sale.actions';
 import { Observable } from 'rxjs';
 import { Registration } from './models';
 import {
-  selecRegis,
-  selectCourseOptions,
-  selectIsLoadinSales,
-  selectLoadSalesError,
-  selectUserOptions,
+  selectError,
+  selectRegistrations,
 } from './store/sale.selectors';
-import { User } from '../users/models';
-import { Course } from '../courses/models';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { RegistrationDialogComponent } from './registrations-dialog/registrations-dialog.component';
 
 @Component({
   selector: 'app-registrations',
   templateUrl: './registrations.component.html',
-  styleUrl: './registrations.component.scss',
+  styleUrls: ['./registrations.component.scss'],
 })
 export class RegistrationsComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'course', 'student', 'actions'];
   regis$: Observable<Registration[]>;
-  userOptions$: Observable<User[]>;
-  courseOptions$: Observable<Course[]>;
   loadSalesError$: Observable<Error | null>;
-  isLoadinSales$: Observable<boolean>;
 
-  regisForm: FormGroup;
-
-  constructor(private store: Store, private formBuilder: FormBuilder) {
-    this.regisForm = this.formBuilder.group({
-      courseId: [null, [Validators.required]],
-      userId: [null, [Validators.required]],
-    });
-
-    this.regis$ = this.store.select(selecRegis);
-    this.userOptions$ = this.store.select(selectUserOptions);
-    this.courseOptions$ = this.store.select(selectCourseOptions);
-    this.isLoadinSales$ = this.store.select(selectIsLoadinSales);
-   this.loadSalesError$ = this.store.select(selectLoadSalesError);
+  constructor(private store: Store, private matDialog: MatDialog) {
+    this.regis$ = this.store.select(selectRegistrations);
+    this.loadSalesError$ = this.store.select(selectError);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(SaleActions.loadSales());
-    this.store.dispatch(SaleActions.loadCourseAndUserOptions())
+    this.store.dispatch(SaleActions.loadRegistrations());
+    this.store.dispatch(SaleActions.loadUsersAndCoursesOptions());
   }
 
-  onSubmit(): void {
-    if (this.regisForm.invalid) {
-      this.regisForm.markAllAsTouched();
-    } else {
-      this.store.dispatch(SaleActions.createRegistration(this.regisForm.value));
-      this.regisForm.reset()
+  onDelete(id: string): void {
+    if (confirm('¿Está seguro que desea eliminar esta inscripción?')) {
+      this.store.dispatch(SaleActions.deleteRegistration({ id }));
     }
+  }
+
+  openModal(editingRegistration?: Registration): void {
+    this.matDialog
+      .open(RegistrationDialogComponent, {
+        height: '50%',
+        width: '60%',
+        data: { editingRegistration },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          if (editingRegistration) {
+            this.store.dispatch(
+              SaleActions.updateRegistration({ id: result.id, registration: result })
+            );
+          } else {
+            this.store.dispatch(SaleActions.createRegistration(result));
+          }
+        }
+      });
   }
 }

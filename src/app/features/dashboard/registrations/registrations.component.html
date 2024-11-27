@@ -1,41 +1,51 @@
-<mat-form-field>
-    <mat-label>Cursos</mat-label>
-    <mat-select formControlName="courseId" required>
-      <mat-option [value]="Cursos.id" *ngFor="let Cursos of courseOptions$ | async">
-        {{ Cursos.name }}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="regisForm.get('courseId')?.hasError('required')">
-      El curso es obligatorio.
-    </mat-error>
-  </mat-form-field>
+<h1 appTitleDirective>Inscripciones</h1>
+
+<div class="container-fluid">
+  <button mat-button (click)="openModal()">
+    <mat-icon>add</mat-icon>
+    Crear Inscripción
+  </button>
+
+  <table mat-table [dataSource]="regis$" class="mat-elevation-z8">
+    
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let reg">{{ reg.id }}</td>
+    </ng-container>
+
   
-  <mat-form-field>
-    <mat-label>Alumno</mat-label>
-    <mat-select formControlName="userId" required>
-      <mat-option [value]="Alumno.id" *ngFor="let Alumno of userOptions$ | async">
-        {{ Alumno.firstName }} {{ Alumno.lastName }}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="regisForm.get('userId')?.hasError('required')">
-      El alumno es obligatorio.
-    </mat-error>
-  </mat-form-field>
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef>Curso</th>
+      <td mat-cell *matCellDef="let reg">{{ reg.course?.name }}</td>
+    </ng-container>
+
+ 
+    <ng-container matColumnDef="student">
+      <th mat-header-cell *matHeaderCellDef>Alumno</th>
+      <td mat-cell *matCellDef="let reg">
+        {{ reg.user?.firstName }} {{ reg.user?.lastName }}
+      </td>
+    </ng-container>
+
   
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let reg">
+        <button mat-icon-button (click)="openModal(reg)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onDelete(reg.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-<pre>{{ regis$ | async | json}}</pre>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 
-<pre *ngIf="regis$ | async as regis">
-    {{ regis | json }}
-  </pre>
-  <h2>Registros Actuales:</h2>
-  <ul>
-    <li *ngFor="let reg of regis$ | async">
-      Curso ID: {{ reg.courseId }}, Alumno ID: {{ reg.userId }}
-    </li>
-  </ul>
-
-  @if (loadSalesError$ | async; as error) {
-    <h2>Hu! Ocurrio un error!</h2>
-    <p>{{error["message"]}}</p>
-  }
+  <div *ngIf="loadSalesError$ | async as error">
+    <h2>¡Ocurrió un error!</h2>
+    <p>{{ error.message }}</p>
+  </div>
+</div>

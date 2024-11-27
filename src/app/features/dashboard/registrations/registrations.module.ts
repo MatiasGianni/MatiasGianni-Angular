@@ -8,11 +8,13 @@ import { SaleEffects } from './store/sale.effects';
 import { StoreModule } from '@ngrx/store';
 import { saleFeature } from './store/sale.reducer';
 import { SharedModule } from '../../../shared/shared.module';
+import { RegistrationDialogComponent } from './registrations-dialog/registrations-dialog.component';
 
 
 @NgModule({
   declarations: [
-    RegistrationsComponent
+    RegistrationsComponent,
+    RegistrationDialogComponent
   ],
   imports: [
     CommonModule,

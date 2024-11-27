@@ -1,77 +1,86 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { SaleActions } from './sale.actions';
 import { Registration } from '../models';
-import { Course } from '../../courses/models';
 import { User } from '../../users/models';
+import { Course } from '../../courses/models';
+
 export const saleFeatureKey = 'sale';
+
 export interface State {
-  isLoadingSales: boolean;
-  loadSalesError: Error | null,
   registrations: Registration[];
-  courseOptions: Course[];
-  userOptions: User[];
+  users: User[];
+  courses: Course[];
+  isLoading: boolean;
+  error: Error | null;
 }
+
 export const initialState: State = {
-  isLoadingSales: false,
-  loadSalesError:null,
   registrations: [],
-  courseOptions: [],
-  userOptions: [],
+  users: [],
+  courses: [],
+  isLoading: false,
+  error: null,
 };
+
 export const reducer = createReducer(
   initialState,
-  on(SaleActions.loadSales, (state) => {
-    return {
-      ...state,
-      isLoadingSales: true
-    };
-  }),
-  on(SaleActions.loadSales, (state) => {
-    return {
-      ...state,
-      isLoadingSales: true,
-    };
-  }),
-on(SaleActions.loadSalesSuccess, (state, action) => {
-  return{
-    ...state,
-    sales:action.data,
-    loadSalesError:null,
-    isLoadingSales:false,
-  }
-}),
-on(SaleActions.loadSalesFailure, (state, action) => {
-  return {
-    ...state,
-    ...initialState,
-    loadSalesError: action.error,
-    isLoadingSales: false,
-  };
-}),
 
-on(SaleActions.loadCourseAndUserOptions, (state) => {
-  return {
+
+  on(SaleActions.loadRegistrations, (state) => ({
     ...state,
-    isLoadingSales: true,
-  };
-}),
-on(SaleActions.loadCourseAndUserOptionsSuccess, (state, action) => {
-  return {
+    isLoading: true,
+    error: null,
+  })),
+  on(SaleActions.loadRegistrationsSuccess, (state, { data }) => ({
     ...state,
-    loadSalesError: null,
-    isLoadingSales: false,
-    productOptions: action.course,
-    userOptions: action.users,
-  };
-}),
-on(SaleActions.loadCourseAndUserOptionsFailure, (state, { error }) => {
-  return {
+    registrations: data,
+    isLoading: false,
+    error: null,
+  })),
+  on(SaleActions.loadRegistrationsFailure, (state, { error }) => ({
     ...state,
-    loadSalesError: error,
-    isLoadingSales: false,
-  };
-})
+    isLoading: false,
+    error,
+  })),
+
+
+  on(SaleActions.loadOptions, (state) => ({
+    ...state,
+    isLoading: true,
+    error: null,
+  })),
+  on(SaleActions.loadOptionsSuccess, (state, { users, courses }) => ({
+    ...state,
+    users,
+    courses,
+    isLoading: false,
+    error: null,
+  })),
+  on(SaleActions.loadOptionsFailure, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error,
+  })),
+
+
+  on(SaleActions.createRegistration, (state) => ({
+    ...state,
+    isLoading: true,
+    error: null,
+  })),
+  on(SaleActions.createRegistrationSuccess, (state, { data }) => ({
+    ...state,
+    registrations: data,
+    isLoading: false,
+    error: null,
+  })),
+  on(SaleActions.createRegistrationFailure, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error,
+  }))
 );
+
 export const saleFeature = createFeature({
   name: saleFeatureKey,
   reducer,

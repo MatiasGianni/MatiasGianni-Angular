@@ -5,28 +5,27 @@ export const selectSaleState = createFeatureSelector<fromSale.State>(
   fromSale.saleFeatureKey
 );
 
-export const selecRegis = createSelector(
+export const selectRegistrations = createSelector(
   selectSaleState,
   (state) => state.registrations
-)
-
-export const selectCourseOptions = createSelector(
-  selectSaleState,
-  (state) => state.courseOptions
-)
+);
 
 export const selectUserOptions = createSelector(
   selectSaleState,
-  (state) => state.userOptions
-)
-
-
-export const selectLoadSalesError = createSelector(
-  selectSaleState,
-  (state) => state.loadSalesError
+  (state) => state.users
 );
 
-export const selectIsLoadinSales = createSelector(
+export const selectCourseOption = createSelector(
   selectSaleState,
-  (state) => state.isLoadingSales
+  (state) => state.courses
+);
+
+export const selectIsLoading = createSelector(
+  selectSaleState,
+  (state) => state.isLoading
+);
+
+export const selectError = createSelector(
+  selectSaleState,
+  (state) => state.error
 );

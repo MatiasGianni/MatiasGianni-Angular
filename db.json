@@ -77,7 +77,28 @@
       "email": "hmundo@gmail.com",
       "password": "123456",
       "createdAt": "2024-11-16T02:35:53.590Z",
-      "token": "qMRnxru4xaM7Ssh"
+      "token": "qMRnxru4xaM7Ssh",
+      "role": "USER"
+    },
+    {
+      "id": "1Rhw",
+      "firstName": "Pepe",
+      "lastName": "Argento",
+      "email": "pargento@gmail.com",
+      "password": "123456",
+      "createdAt": "2024-11-29T23:01:11.005Z",
+      "token": "iioIUct4eIWkUmF",
+      "role": "USER"
+    },
+    {
+      "id": "BW4U",
+      "firstName": "Oriana",
+      "lastName": "Lopez",
+      "email": "olopez@gmail.com",
+      "password": "123456",
+      "createdAt": "2024-11-29T23:07:23.429Z",
+      "token": "X4BZcxpFLX9vuu4",
+      "role": "USER"
     }
   ],
   "classes": [

@@ -35,8 +35,10 @@ export class AuthService {
       )
       .pipe(
         map((users) => {
+          this.store.dispatch(AuthActions.unsetAuthenticatedUser()); 
           const user = this.handleAuthentication(users);
           if (user) {
+            this.store.dispatch(AuthActions.setAuthenticatedUser({ user })); 
             return user;
           } else {
             throw new Error('Los datos son invalidos');

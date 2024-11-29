@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, map } from 'rxjs/operators';
+import { catchError, concatMap, map, tap } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 import { SaleActions } from './sale.actions';
 import { RegistrationService } from '../../../../core/services/registrations.service';
@@ -97,18 +97,25 @@ export class SaleEffects {
   updateRegistration$ = createEffect(() =>
     this.actions$.pipe(
       ofType(SaleActions.updateRegistration),
-      concatMap((action) =>
-        this.registrationService
-          .updateRegistration(action.id, action.registration) 
+     
+      concatMap((action) => {
+       
+        return this.registrationService
+          .updateRegistration(action.id, action.registration)
           .pipe(
-            map(() => SaleActions.updateRegistrationSuccess()), 
-            catchError((error) =>
-              of(SaleActions.updateRegistrationFailure({ error }))
-            )
-          )
-      )
+            map(() => {
+          
+              return SaleActions.updateRegistrationSuccess();
+            }),
+            catchError((error) => {
+              console.error('Error occurred:', error); 
+              return of(SaleActions.updateRegistrationFailure({ error }));
+            })
+          );
+      })
     )
   );
+  
   
   
 }

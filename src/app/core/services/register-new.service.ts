@@ -12,13 +12,14 @@ export class RegisterNewService {
   private baseURL = environment.apiBaseURL;
   constructor(private httpClient: HttpClient) {}
   registerUser(
-    newUser: Omit<User, 'id' | 'createdAt' | 'token'>
+    newUser: Omit<User, 'id' | 'createdAt' | 'token' | 'role'>
   ): Observable<User[]> {
     const userWithIdAndToken = {
       ...newUser,
       id: generateRandomString(4),
       createdAt: new Date().toISOString(),
       token: generateRandomString(15),
+      role: "USER",
     };
     return this.httpClient
       .post<User>(`${this.baseURL}/users`, userWithIdAndToken)

@@ -32,7 +32,7 @@ export class RegisterNewComponent implements OnInit {
       this.registerForm.value;
     this.registerService.registerUser(newUser).subscribe({
       next: (users) => {
-        console.log('Usuario registrado con éxito', users);
+        
         this.router.navigate(['/login']);
       },
       error: (err) => {

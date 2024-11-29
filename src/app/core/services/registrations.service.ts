@@ -32,7 +32,7 @@ export class RegistrationService {
   updateRegistration(id: string, payload: Omit<Registration, 'user' | 'course'>): Observable<Registration[]> {
     return this.httpClient
       .patch<Registration>(`${this.baseURL}/registrations/${id}`, payload)
-      .pipe(concatMap(() => this.getRegistration())); // Devuelve la lista actualizada
+      .pipe(concatMap(() => this.getRegistration())); 
   }
   
 

@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { authFeatureName, authReducer } from './store/reducers/auth.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { EffectsModule } from '@ngrx/effects';
     AppRoutingModule,
     SharedModule,
     StoreModule.forRoot({}, {}),
+    StoreModule.forFeature(authFeatureName, authReducer),
     EffectsModule.forRoot([]),
   ],
   providers: [

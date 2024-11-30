@@ -5,7 +5,7 @@
   </ng-container>
 
   <ng-template #courseList>
-    <button mat-button (click)="openModal()">
+    <button *ngIf="(authUser$ | async)?.role === 'ADMIN'" mat-button (click)="openModal()">
       <mat-icon> add </mat-icon>
       Crear Curso
     </button>
@@ -38,11 +38,11 @@
             <mat-icon>visibility</mat-icon>
           </button>
 
-          <button (click)="goToEdit(course.id)" mat-icon-button>
+          <button *ngIf="(authUser$ | async)?.role === 'ADMIN'" (click)="goToEdit(course.id)" mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
 
-          <button (click)="onDelete(course.id)" mat-icon-button>
+          <button *ngIf="(authUser$ | async)?.role === 'ADMIN'" (click)="onDelete(course.id)" mat-icon-button>
             <mat-icon>delete</mat-icon>
           </button>
         </td>

@@ -5,7 +5,8 @@
   <mat-spinner></mat-spinner>
   } @else {
 
-  <button mat-button (click)="openModal()">
+  
+  <button *ngIf="(authUser$ | async)?.role === 'ADMIN'" mat-button (click)="openModal()">
     <mat-icon> add </mat-icon>
     Crear Usuario
   </button>
@@ -40,10 +41,10 @@
         </button>
 
 
-        <button (click)="openModal(user)" mat-icon-button>
+        <button *ngIf="(authUser$ | async)?.role === 'ADMIN'" (click)="openModal(user)" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>
-        <button (click)="onDelete(user.id)" mat-icon-button>
+        <button *ngIf="(authUser$ | async)?.role === 'ADMIN'" (click)="onDelete(user.id)" mat-icon-button>
           <mat-icon>delete</mat-icon>
         </button>
       </td>

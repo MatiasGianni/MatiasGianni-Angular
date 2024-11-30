@@ -38,7 +38,7 @@
         >
         Cursos
       </a>
-      <a
+      <a *ngIf="(authUser$ | async)?.role === 'ADMIN'"
       routerLinkActive
       #registrationsLink="routerLinkActive"
       routerLink="registrations"

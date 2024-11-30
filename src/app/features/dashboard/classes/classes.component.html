@@ -6,7 +6,7 @@
   </ng-container>
 
   <ng-template #classList>
-    <button mat-button (click)="openModal()">
+    <button *ngIf="(authUser$ | async)?.role === 'ADMIN'" mat-button (click)="openModal()">
       <mat-icon>add</mat-icon>
       Crear Clase
     </button>
@@ -44,11 +44,11 @@
             <mat-icon>visibility</mat-icon>
           </button>
 
-          <button (click)="openModal(class)" mat-icon-button>
+          <button *ngIf="(authUser$ | async)?.role === 'ADMIN'" (click)="openModal(class)" mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
 
-          <button (click)="onDelete(class.id)" mat-icon-button>
+          <button *ngIf="(authUser$ | async)?.role === 'ADMIN'" (click)="onDelete(class.id)" mat-icon-button>
             <mat-icon>delete</mat-icon>
           </button>
         </td>

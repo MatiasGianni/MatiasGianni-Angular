@@ -10,30 +10,33 @@ import { Action } from '@ngrx/store';
 
 @Injectable()
 export class SaleEffects {
-
-  loadRegistrations$:Actions<Action<string>>;
-  loadOptions$:Actions<Action<string>>;
-  createRegistration$:Actions<Action<string>>;
-  reloadAfterCreate$:Actions<Action<string>>;
-  deleteRegistration$:Actions<Action<string>>;
-  updateRegistration$:Actions<Action<string>>;
+  loadRegistrations$: Actions<Action<string>>;
+  loadOptions$: Actions<Action<string>>;
+  createRegistration$: Actions<Action<string>>;
+  reloadAfterCreate$: Actions<Action<string>>;
+  deleteRegistration$: Actions<Action<string>>;
+  updateRegistration$: Actions<Action<string>>;
   constructor(
     private actions$: Actions,
     private registrationService: RegistrationService,
     private userService: UsersService,
     private courseService: CoursesService
   ) {
-    this.loadRegistrations$ = createEffect(() =>{
+    this.loadRegistrations$ = createEffect(() => {
       return this.actions$.pipe(
-         ofType(SaleActions.loadRegistrations),
-         concatMap(() =>
-           this.registrationService.getRegistration().pipe(
-             map((response) => SaleActions.loadRegistrationsSuccess({ data: response })),
-             catchError((error) => of(SaleActions.loadRegistrationsFailure({ error })))
-           )
-         )
-       )
-   });
+        ofType(SaleActions.loadRegistrations),
+        concatMap(() =>
+          this.registrationService.getRegistration().pipe(
+            map((response) =>
+              SaleActions.loadRegistrationsSuccess({ data: response })
+            ),
+            catchError((error) =>
+              of(SaleActions.loadRegistrationsFailure({ error }))
+            )
+          )
+        )
+      );
+    });
 
     this.loadOptions$ = createEffect(() =>
       this.actions$.pipe(
@@ -46,9 +49,7 @@ export class SaleEffects {
             map(({ courses, users }) =>
               SaleActions.loadOptionsSuccess({ courses, users })
             ),
-            catchError((error) =>
-              of(SaleActions.loadOptionsFailure({ error }))
-            )
+            catchError((error) => of(SaleActions.loadOptionsFailure({ error })))
           )
         )
       )
@@ -57,19 +58,19 @@ export class SaleEffects {
     this.createRegistration$ = createEffect(() =>
       this.actions$.pipe(
         ofType(SaleActions.createRegistration),
-        concatMap((action) => 
-          this.registrationService.createSale({
-            id: action.id,           
-            courseId: action.courseId, 
-            userId: action.userId     
-          }).pipe(
-            map((data) =>
-              SaleActions.createRegistrationSuccess({ data }) 
-            ),
-            catchError((error) =>
-              of(SaleActions.createRegistrationFailure({ error })) 
+        concatMap((action) =>
+          this.registrationService
+            .createSale({
+              id: action.id,
+              courseId: action.courseId,
+              userId: action.userId,
+            })
+            .pipe(
+              map((data) => SaleActions.createRegistrationSuccess({ data })),
+              catchError((error) =>
+                of(SaleActions.createRegistrationFailure({ error }))
+              )
             )
-          )
         )
       )
     );
@@ -98,18 +99,16 @@ export class SaleEffects {
     this.updateRegistration$ = createEffect(() =>
       this.actions$.pipe(
         ofType(SaleActions.updateRegistration),
-       
+
         concatMap((action) => {
-         
           return this.registrationService
             .updateRegistration(action.id, action.registration)
             .pipe(
               map(() => {
-            
                 return SaleActions.updateRegistrationSuccess();
               }),
               catchError((error) => {
-                console.error('Error occurred:', error); 
+                console.error('Error occurred:', error);
                 return of(SaleActions.updateRegistrationFailure({ error }));
               })
             );

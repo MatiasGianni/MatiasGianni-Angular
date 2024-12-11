@@ -4,8 +4,6 @@ import { Store } from '@ngrx/store';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-
-
 import {
   
   selectCourseOption,
@@ -20,7 +18,6 @@ import { Course } from '../../courses/models';
 interface RegistrationDialogData {
   editingRegistration?: Registration;
 }
-
 
 @Component({
   selector: 'app-registrations-dialog',
@@ -45,6 +42,7 @@ export class RegistrationDialogComponent implements OnInit {
 
     this.userOptions$ = this.store.select(selectUserOptions);
     this.courseOptions$ = this.store.select(selectCourseOption);
+    this.patchFormValue();
   }
 
   private get isEditing(): boolean {

@@ -3,6 +3,7 @@ import { SaleActions } from './sale.actions';
 import { Registration } from '../models';
 import { User } from '../../users/models';
 import { Course } from '../../courses/models';
+import { state } from '@angular/animations';
 
 export const saleFeatureKey = 'sale';
 
@@ -42,6 +43,25 @@ export const reducer = createReducer(
     isLoading: false,
     error,
   })),
+  on(SaleActions.loadUsersAndCoursesOptions, (state) => {
+    return {
+      ...state
+    };
+  }),
+  on(SaleActions.loadUsersAndCoursesOptionsSuccess, (state, action) => {
+    return {
+      ...state,
+      loadInscriptionError: null,
+      userOption: action.users,
+      courseOption: action.courses
+    };
+  }),
+  on(SaleActions.loadUsersAndCoursesOptionsFailure, (state, action) => {
+    return {
+      ...state,
+      loadInscriptionError: action.error,
+    }
+  }),
 
 
   on(SaleActions.loadOptions, (state) => ({

@@ -12,6 +12,7 @@ import { Action } from '@ngrx/store';
 export class SaleEffects {
   loadRegistrations$: Actions<Action<string>>;
   loadOptions$: Actions<Action<string>>;
+  loadUserAndCourseOptions$: Actions<Action<string>>;
   createRegistration$: Actions<Action<string>>;
   reloadAfterCreate$: Actions<Action<string>>;
   deleteRegistration$: Actions<Action<string>>;
@@ -40,20 +41,45 @@ export class SaleEffects {
 
     this.loadOptions$ = createEffect(() =>
       this.actions$.pipe(
-        ofType(SaleActions.loadOptions),
+        ofType(SaleActions.loadUsersAndCoursesOptions), 
         concatMap(() =>
           forkJoin({
-            courses: this.courseService.getCourses(),
-            users: this.userService.getUsers(),
+            courses: this.courseService.getCourses(), 
+            users: this.userService.getUsers(), 
           }).pipe(
-            map(({ courses, users }) =>
-              SaleActions.loadOptionsSuccess({ courses, users })
-            ),
-            catchError((error) => of(SaleActions.loadOptionsFailure({ error })))
+            map(({ courses, users }) => {
+   
+              return SaleActions.loadOptionsSuccess({ courses, users });
+            }),
+            catchError((error) => {
+             
+              return of(SaleActions.loadOptionsFailure({ error }));
+            })
           )
         )
       )
     );
+    
+
+    this.loadUserAndCourseOptions$ = createEffect( () => {
+      return this.actions$.pipe(
+        ofType(SaleActions.loadUsersAndCoursesOptions),
+        concatMap( () => 
+          forkJoin([
+            this.courseService.getCourses(),
+            this.userService.getUsers()
+          ]).pipe(
+            map((res) => 
+              SaleActions.loadUsersAndCoursesOptionsSuccess({
+                courses: res[0],
+                users: res[1]
+              })
+            ),
+            catchError((err) => of(SaleActions.loadUsersAndCoursesOptionsFailure(err)))
+          )
+        )
+      )
+    });
 
     this.createRegistration$ = createEffect(() =>
       this.actions$.pipe(

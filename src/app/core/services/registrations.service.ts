@@ -4,6 +4,8 @@ import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
+import { User } from '../../features/dashboard/users/models';
+import { Course } from '../../features/dashboard/courses/models';
 
 @Injectable({
   providedIn: 'root',
@@ -55,4 +57,15 @@ export class RegistrationService {
       `${this.baseURL}?courseId=${courseId}&_embed=user&_embed=course`
     );
   }
+
+  getUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.baseURL}/users`);
+  }
+
+  getCourses(): Observable<Course[]> {
+    return this.httpClient.get<Course[]>(`${this.baseURL}/courses`);
+  }
+
+
+
 }

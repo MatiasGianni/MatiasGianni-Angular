@@ -4,11 +4,7 @@ import { Store } from '@ngrx/store';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-import {
-  
-  selectCourseOption,
-  selectUserOptions,
-} from '../store/sale.selectors';
+import { selectCourseOption, selectUserOptions } from '../store/sale.selectors';
 import { SaleActions } from '../store/sale.actions';
 import { generateRandomString } from '../../../../shared/utils';
 import { Registration } from '../models';
@@ -24,6 +20,7 @@ interface RegistrationDialogData {
   templateUrl: './registrations-dialog.component.html',
   styleUrl: './registrations-dialog.component.scss'
 })
+
 export class RegistrationDialogComponent implements OnInit {
   registrationForm: FormGroup;
   userOptions$: Observable<User[]>;
@@ -42,7 +39,6 @@ export class RegistrationDialogComponent implements OnInit {
 
     this.userOptions$ = this.store.select(selectUserOptions);
     this.courseOptions$ = this.store.select(selectCourseOption);
-    this.patchFormValue();
   }
 
   private get isEditing(): boolean {
@@ -52,27 +48,29 @@ export class RegistrationDialogComponent implements OnInit {
   ngOnInit(): void {
    
     this.store.dispatch(SaleActions.loadUsersAndCoursesOptions());
-    this.patchFormValue();
-  }
 
-  private patchFormValue(): void {
+   
     if (this.data?.editingRegistration) {
-      this.registrationForm.patchValue(this.data.editingRegistration);
+      this.registrationForm.patchValue(this.data?.editingRegistration);
     }
+
+  
+    this.userOptions$.subscribe(users => console.log('Usuarios cargados:', users));
+    this.courseOptions$.subscribe(courses => console.log('Cursos cargados:', courses));
   }
 
   onSave(): void {
     if (this.registrationForm.invalid) {
       this.registrationForm.markAllAsTouched();
-    } else {
-      const result = {
-        ...this.registrationForm.value,
-        id: this.isEditing
-          ? this.data?.editingRegistration?.id
-          : generateRandomString(4),
-      };
-
-      this.matDialogRef.close(result);
+      return; 
     }
+
+    const result = {
+      ...this.registrationForm.value,
+      id: this.isEditing
+        ? this.data?.editingRegistration?.id
+        : generateRandomString(4)
+    };
+    this.matDialogRef.close(result);
   }
 }

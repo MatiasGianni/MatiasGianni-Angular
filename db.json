@@ -11,56 +11,6 @@
       "createdAt": "2024-11-01T02:27:58.659Z"
     },
     {
-      "id": "ABCD",
-      "firstName": "Naruto",
-      "lastName": "Uzumaki",
-      "email": "naruto.uzumaki@konoha.com",
-      "password": "1235",
-      "role": "USER",
-      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
-      "createdAt": "1999-09-21T00:00:00.000Z"
-    },
-    {
-      "id": "EFGH",
-      "firstName": "Monkey D.",
-      "lastName": "Luffy",
-      "email": "luffy.d.monkey@strawhats.com",
-      "password": "4567",
-      "role": "USER",
-      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
-      "createdAt": "1997-07-22T00:00:00.000Z"
-    },
-    {
-      "id": "IJKL",
-      "firstName": "Goku",
-      "lastName": "Son",
-      "email": "goku.son@saiyan.com",
-      "password": "7890",
-      "role": "USER",
-      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
-      "createdAt": "1984-12-03T00:00:00.000Z"
-    },
-    {
-      "id": "MNOP",
-      "firstName": "Izuku",
-      "lastName": "Midoriya",
-      "email": "izuku.midoriya@ua.com",
-      "password": "2345",
-      "role": "USER",
-      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
-      "createdAt": "2014-07-07T00:00:00.000Z"
-    },
-    {
-      "id": "QRST",
-      "firstName": "Tanjiro",
-      "lastName": "Kamado",
-      "email": "tanjiro.kamado@demon-slayer.com",
-      "password": "6789",
-      "role": "USER",
-      "token": "asdGFdfgdfHGBFghfghfghFgdfGDfcv",
-      "createdAt": "2016-02-15T00:00:00.000Z"
-    },
-    {
       "id": "jwaI",
       "firstName": "Juan Francisco",
       "lastName": "García Flores",
@@ -98,6 +48,16 @@
       "password": "123456",
       "createdAt": "2024-11-29T23:07:23.429Z",
       "token": "X4BZcxpFLX9vuu4",
+      "role": "USER"
+    },
+    {
+      "id": "xMQ0",
+      "firstName": "Pepe",
+      "lastName": "Argento",
+      "email": "pargeto@gmail.com",
+      "password": "123456",
+      "createdAt": "2024-12-11T05:11:58.590Z",
+      "token": "jrdRXIvfYyyWa6I",
       "role": "USER"
     }
   ],
@@ -192,9 +152,14 @@
   ],
   "registrations": [
     {
-      "id": "1sd5",
-      "userId": "EFGH",
-      "courseId": "EFGH"
+      "id": "1kH5",
+      "courseId": "ABCD",
+      "userId": "BW4U"
+    },
+    {
+      "id": "gbuI",
+      "courseId": "IJKL",
+      "userId": "xMQ0"
     }
   ]
 }

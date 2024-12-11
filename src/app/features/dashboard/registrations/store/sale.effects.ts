@@ -113,7 +113,9 @@ export class SaleEffects {
         ofType(SaleActions.deleteRegistration),
         concatMap((action) =>
           this.registrationService.deleteRegistration(action.id).pipe(
-            map(() => SaleActions.deleteRegistrationSuccess()),
+            map(() => {
+              return SaleActions.loadRegistrations(); 
+            }),
             catchError((error) =>
               of(SaleActions.deleteRegistrationFailure({ error }))
             )
@@ -121,17 +123,17 @@ export class SaleEffects {
         )
       )
     );
+    
 
     this.updateRegistration$ = createEffect(() =>
       this.actions$.pipe(
         ofType(SaleActions.updateRegistration),
-
         concatMap((action) => {
           return this.registrationService
             .updateRegistration(action.id, action.registration)
             .pipe(
               map(() => {
-                return SaleActions.updateRegistrationSuccess();
+                return SaleActions.loadRegistrations(); 
               }),
               catchError((error) => {
                 console.error('Error occurred:', error);
@@ -141,5 +143,6 @@ export class SaleEffects {
         })
       )
     );
+    
   }
 }

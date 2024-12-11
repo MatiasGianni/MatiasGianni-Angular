@@ -32,10 +32,12 @@ export class RegistrationService {
 
 
   updateRegistration(id: string, payload: Omit<Registration, 'user' | 'course'>): Observable<Registration[]> {
+    const url = `${this.baseURL}/${id}`;
     return this.httpClient
-      .patch<Registration>(`${this.baseURL}/registrations/${id}`, payload)
-      .pipe(concatMap(() => this.getRegistration())); 
+      .patch<Registration>(url, payload)
+      .pipe(concatMap(() => this.getRegistration()));
   }
+  
   
 
 

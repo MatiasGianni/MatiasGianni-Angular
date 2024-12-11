@@ -48,15 +48,14 @@ export class RegistrationDialogComponent implements OnInit {
   ngOnInit(): void {
    
     this.store.dispatch(SaleActions.loadUsersAndCoursesOptions());
-
+   
    
     if (this.data?.editingRegistration) {
       this.registrationForm.patchValue(this.data?.editingRegistration);
     }
 
   
-    this.userOptions$.subscribe(users => console.log('Usuarios cargados:', users));
-    this.courseOptions$.subscribe(courses => console.log('Cursos cargados:', courses));
+    
   }
 
   onSave(): void {

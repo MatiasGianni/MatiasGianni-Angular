@@ -81,6 +81,24 @@ export const reducer = createReducer(
     isLoading: false,
     error,
   })),
+  on(SaleActions.updateRegistration, (state) => {
+    return{
+      ...state,
+    }
+  }),
+  on(SaleActions.updateRegistrationSuccess, (state, action) => {
+    return{
+      ...state,
+      inscriptions: action,
+      loadInscriptionError: null
+    }
+  }),
+  on(SaleActions.updateRegistrationFailure, (state,action) => {
+    return{
+      ...state,
+      loadInscriptionError: action.error
+    }
+  }),
 
 
   on(SaleActions.createRegistration, (state) => ({
